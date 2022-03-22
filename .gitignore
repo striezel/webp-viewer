@@ -1,0 +1,16 @@
+#Code::Blocks files
+*.depend
+*.layout
+
+# object and binary directories
+bin/
+obj/
+# object files
+*.o
+
+# build directory
+build/
+b/
+
+# cppcheck results
+CppCheckResults.xml

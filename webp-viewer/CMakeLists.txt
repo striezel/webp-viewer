@@ -1,0 +1,54 @@
+# We might support earlier versions, too, but try to use a more recent one.
+cmake_minimum_required (VERSION 3.8)
+
+project(webp-viewer)
+
+set(webp_viewer_sources
+    main.cpp)
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    add_definitions (-Wall -fexceptions)
+endif ()
+if (CODE_COVERAGE)
+    add_definitions (-O0)
+else()
+    add_definitions (-O2)
+endif()
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -s" )
+add_executable(webp-viewer ${webp_viewer_sources})
+
+# GNU GCC before 9.1.0 needs to link to libstdc++fs explicitly.
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9.1.0")
+  target_link_libraries(webp-viewer stdc++fs)
+endif ()
+
+# Clang before 9.0 needs to link to libc++fs explicitly.
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9.0")
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "8.0")
+    # If we are on Clang 7.x, then the filesystem library from GCC is better.
+    target_link_libraries(webp-viewer stdc++fs)
+  else ()
+   # Use Clang's C++ filesystem library, it is recent enough.
+   target_link_libraries(webp-viewer c++fs)
+  endif ()
+endif ()
+
+# libGL
+find_package (OpenGL REQUIRED COMPONENTS OpenGL)
+if (OpenGL_OpenGL_FOUND)
+  include_directories(${OPENGL_INCLUDE_DIR})
+  target_link_libraries (webp-viewer ${OPENGL_LIBRARIES})
+else ()
+  message ( FATAL_ERROR "libGL was not found!" )
+endif ()
+
+# GLFW for window handling
+find_package (glfw3 REQUIRED)
+if (glfw3_FOUND)
+  target_link_libraries (webp-viewer glfw)
+else ()
+  message ( FATAL_ERROR "GLFW was not found!" )
+endif ()
