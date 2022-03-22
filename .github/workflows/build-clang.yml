@@ -1,0 +1,34 @@
+name: Clang
+
+on: push
+
+jobs:
+  ubuntu_20_04_clang:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        version: [8, 9, 10, 11]
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE.
+      - uses: actions/checkout@v2
+      - name: Install Debian packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y catch cmake clang-${{ matrix.version }} libgl-dev libglfw3-dev pkg-config
+      - name: Install Clang's standard C++ library
+        run: |
+          sudo apt-get install -y libc++-${{ matrix.version }}-dev
+        if: matrix.version != 11
+      - name: Build with Clang ${{ matrix.version }}
+        run: |
+          export CXX=clang++-${{ matrix.version }}
+          export CC=clang-${{ matrix.version }}
+          cd $GITHUB_WORKSPACE
+          mkdir build
+          cd build
+          cmake ../
+          make -j4
+      - name: Tests
+        run: |
+          cd "$GITHUB_WORKSPACE"/build
+          ctest -V
