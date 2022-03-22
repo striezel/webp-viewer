@@ -1,0 +1,33 @@
+debian:
+  image: debian:11-slim
+  stage: test
+  before_script:
+    - apt-get update && apt-get -y upgrade
+    - apt-get install -y catch cmake g++-10 libgl-dev libglfw3-dev pkg-config
+  script:
+    # build
+    - export CXX=g++-10
+    - export CC=gcc-10
+    - mkdir build
+    - cd build
+    - cmake ../
+    - make -j4
+    # tests
+    - ctest -V
+
+fedora:
+  image: fedora:35
+  stage: test
+  before_script:
+    - yum update -y
+    - yum install -y catch-devel cmake gcc-c++ glfw-devel pkgconfig
+  script:
+    # build
+    - export CXX=g++
+    - export CC=gcc
+    - mkdir build
+    - cd build
+    - cmake ../
+    - make -j4
+    # tests
+    - ctest -V
