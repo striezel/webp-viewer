@@ -37,8 +37,12 @@
 		<Linker>
 			<Add library="glfw" />
 			<Add library="GL" />
+			<Add library="webp" />
 		</Linker>
+		<Unit filename="../third-party/nonstd/expected.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="webp.cpp" />
+		<Unit filename="webp.hpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

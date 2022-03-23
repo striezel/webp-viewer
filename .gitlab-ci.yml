@@ -3,7 +3,7 @@ debian:
   stage: test
   before_script:
     - apt-get update && apt-get -y upgrade
-    - apt-get install -y catch cmake g++-10 libgl-dev libglfw3-dev pkg-config
+    - apt-get install -y catch cmake g++-10 libgl-dev libglfw3-dev libwebp-dev pkg-config
   script:
     # build
     - export CXX=g++-10
@@ -20,7 +20,7 @@ fedora:
   stage: test
   before_script:
     - yum update -y
-    - yum install -y catch-devel cmake gcc-c++ glfw-devel pkgconfig
+    - yum install -y catch-devel cmake gcc-c++ glfw-devel libwebp-devel pkgconfig
   script:
     # build
     - export CXX=g++

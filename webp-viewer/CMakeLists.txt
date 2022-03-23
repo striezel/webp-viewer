@@ -4,6 +4,7 @@ cmake_minimum_required (VERSION 3.8)
 project(webp-viewer)
 
 set(webp_viewer_sources
+    webp.cpp
     main.cpp)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -51,4 +52,14 @@ if (glfw3_FOUND)
   target_link_libraries (webp-viewer glfw)
 else ()
   message ( FATAL_ERROR "GLFW was not found!" )
+endif ()
+
+# libwebp
+set(webp_DIR "../cmake/" )
+find_package (webp REQUIRED)
+if (WEBP_FOUND)
+  include_directories(${WEBP_INCLUDE_DIRS})
+  target_link_libraries (webp-viewer ${WEBP_LIBRARIES})
+else ()
+  message ( FATAL_ERROR "libwebp was not found!" )
 endif ()

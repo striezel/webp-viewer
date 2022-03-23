@@ -14,7 +14,7 @@ jobs:
       - name: Install Debian packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y catch cmake clang-${{ matrix.version }} libgl-dev libglfw3-dev pkg-config
+          sudo apt-get install -y catch cmake clang-${{ matrix.version }} libgl-dev libglfw3-dev libwebp-dev pkg-config
       - name: Install Clang's standard C++ library
         run: |
           sudo apt-get install -y libc++-${{ matrix.version }}-dev
