@@ -21,7 +21,7 @@
 #ifndef WEBPVIEWER_WEBP_HPP
 #define WEBPVIEWER_WEBP_HPP
 
-#include <memory>
+#include <optional>
 #include <string>
 #include "../third-party/nonstd/expected.hpp"
 
