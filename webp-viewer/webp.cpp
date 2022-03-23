@@ -63,7 +63,7 @@ std::optional<buffer> read_file(const std::string& path)
   }
 
   stream.close();
-  return buffer{ data, file_size };
+  return buffer{ data, static_cast<size_t>(file_size) };
 }
 
 std::optional<image_data> get_rgb_data(const uint8_t* data, size_t data_size)

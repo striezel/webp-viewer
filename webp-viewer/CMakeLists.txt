@@ -63,3 +63,24 @@ if (WEBP_FOUND)
 else ()
   message ( FATAL_ERROR "libwebp was not found!" )
 endif ()
+
+# #################### #
+# tests for executable #
+# #################### #
+
+# add tests for --version and --help parameters
+# default help parameter "--help"
+add_test(NAME webp-viewer_help
+         COMMAND $<TARGET_FILE:webp-viewer> --help)
+
+# short help parameter with question mark "-?"
+add_test(NAME webp-viewer_help_question_mark
+         COMMAND $<TARGET_FILE:webp-viewer> -?)
+
+# Windows-style help parameter "/?"
+add_test(NAME webp-viewer_help_question_mark_windows
+         COMMAND $<TARGET_FILE:webp-viewer> /?)
+
+# parameter to show version number
+add_test(NAME webp-viewer_version
+         COMMAND $<TARGET_FILE:webp-viewer> --version)
