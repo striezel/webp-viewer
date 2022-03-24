@@ -4,6 +4,7 @@ cmake_minimum_required (VERSION 3.8)
 project(webp-viewer)
 
 set(webp_viewer_sources
+    buffer.cpp
     webp.cpp
     main.cpp)
 

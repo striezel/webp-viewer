@@ -40,6 +40,8 @@
 			<Add library="webp" />
 		</Linker>
 		<Unit filename="../third-party/nonstd/expected.hpp" />
+		<Unit filename="buffer.cpp" />
+		<Unit filename="buffer.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="webp.cpp" />
 		<Unit filename="webp.hpp" />

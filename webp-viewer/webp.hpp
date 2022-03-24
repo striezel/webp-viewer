@@ -24,6 +24,7 @@
 #include <optional>
 #include <string>
 #include "../third-party/nonstd/expected.hpp"
+#include "buffer.hpp"
 
 /** \brief Gets the WebP library version.
  *
@@ -46,21 +47,13 @@ struct dimensions
  */
 std::optional<dimensions> get_dimensions(const uint8_t* data, size_t data_size);
 
-struct buffer
-{
-  // TODO: Free data with delete[] after use.
-
-  uint8_t * data;
-  size_t data_size;
-};
-
 /** \brief Reads the whole file into a buffer.
  *
  * \param path   the path of the file
  * \return Returns a buffer containing a data pointer and size of the buffer in
  *         case of success. Returns an empty optional on failure.
  */
-std::optional<buffer> read_file(const std::string& path);
+nonstd::expected<buffer, std::string> read_file(const std::string& path);
 
 struct image_data
 {

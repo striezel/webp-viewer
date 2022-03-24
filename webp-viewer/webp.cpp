@@ -40,26 +40,32 @@ std::optional<dimensions> get_dimensions(const uint8_t* data, size_t data_size)
   return result;
 }
 
-std::optional<buffer> read_file(const std::string& path)
+nonstd::expected<buffer, std::string> read_file(const std::string& path)
 {
   std::ifstream stream(path, std::ios::in | std::ios::binary);
   if (!stream.good())
-    return std::nullopt;
+  {
+    return nonstd::make_unexpected("File could not be opened.");
+  }
 
   stream.seekg(0, std::ios_base::end);
   const auto file_size = stream.tellg();
   if (file_size == std::ifstream::pos_type(-1))
-    return std::nullopt;
+  {
+    return nonstd::make_unexpected("File size could not be determined.");
+  }
   stream.seekg(0, std::ios_base::beg);
   if (!stream.good())
-    return std::nullopt;
+  {
+    return nonstd::make_unexpected("File seek operation failed.");
+  }
 
   uint8_t * data = new uint8_t[file_size];
   stream.read(reinterpret_cast<char*>(data), file_size);
   if (!stream.good())
   {
     delete[] data;
-    return std::nullopt;
+    return nonstd::make_unexpected("Not all data could be read from the file.");
   }
 
   stream.close();

@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <GLFW/glfw3.h>
+#include <GL/gl.h>
 #include "webp.hpp"
 
 const int rcInvalidParameter = 1;
@@ -30,7 +31,7 @@ const int rcGlfwError = 2;
 
 void showVersion()
 {
-  std::cout << "webp-viewer, version 0.1.0, 2022-03-23\n"
+  std::cout << "webp-viewer, version 0.1.1, 2022-03-24\n"
             << "\n"
             << "Library versions:\n"
             << "  * libwebp: " << webp_version() << std::endl;
@@ -105,21 +106,18 @@ int main(int argc, char** argv)
   const auto buffer = read_file(file);
   if (!buffer.has_value())
   {
-    std::cout << "Error: Failed to read file!\n";
+    std::cerr << "Error: Failed to read file!\n" << buffer.error() << std::endl;
     return 3;
   }
 
-  const auto dims = get_dimensions(buffer.value().data, buffer.value().data_size);
+  const auto dims = get_dimensions(buffer.value().data(), buffer.value().size());
   if (!dims.has_value())
   {
-    delete[] buffer.value().data;
     std::cout << "Error: " << file << " is not a WebP file!\n";
     return 3;
   }
   std::cout << "Image size: width: " << dims.value().width << ", height: "
             << dims.value().height << std::endl;
-
-  delete[] buffer.value().data;
 
   if (!glfwInit())
   {
@@ -127,7 +125,7 @@ int main(int argc, char** argv)
     return rcGlfwError;
   }
 
-  GLFWwindow * window = glfwCreateWindow(640, 480, "webp viewer", NULL, NULL);
+  GLFWwindow * window = glfwCreateWindow(640, 480, "webp viewer", nullptr, nullptr);
   if (!window)
   {
     glfwTerminate();
@@ -137,9 +135,22 @@ int main(int argc, char** argv)
 
   glfwMakeContextCurrent(window);
   glfwSetKeyCallback(window, key_callback);
+
+  std::cout << "OpenGL version:  " << glGetString(GL_VERSION) << "\n"
+            << "OpenGL vendor:   " << glGetString(GL_VENDOR) << "\n"
+            << "OpenGL renderer: " << glGetString(GL_RENDERER) << "\n";
+
   while (!glfwWindowShouldClose(window))
   {
     glClear(GL_COLOR_BUFFER_BIT);
+    glBegin(GL_TRIANGLES);
+      glColor3f(1.0f, 0, 0);
+      glVertex2d(-0.5, -0.5);
+      glColor3f(0, 1.0f, 0);
+      glVertex2d(0.5, -0.5);
+      glColor3f(0, 0, 1.0f);
+      glVertex2d(0.0, 0.5);
+    glEnd();
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
