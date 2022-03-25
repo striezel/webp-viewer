@@ -18,24 +18,23 @@
  -------------------------------------------------------------------------------
 */
 
-#ifndef WEBPVIEWER_IMAGE_DATA_HPP
-#define WEBPVIEWER_IMAGE_DATA_HPP
+#ifndef WEBPVIEWER_SCALING_HPP
+#define WEBPVIEWER_SCALING_HPP
 
-#include <cstddef>
-#include <cstdint>
 #include "dimensions.hpp"
 
-struct image_data
-{
-  image_data(uint8_t * data_ptr, const size_t size_, const dimensions dims);
-  image_data(const image_data& op) = delete;
-  image_data(image_data&& op);
-  image_data operator=(const image_data& op) = delete;
-  ~image_data();
+/// Default size of the window, if size calculation fails.
+const dimensions default_window_size = { 640, 480 };
 
-  uint8_t * data;
-  size_t data_size;
-  dimensions size;
-};
+/// Gets the maximum possible window size.
+dimensions get_maximum_window_size();
 
-#endif // WEBPVIEWER_IMAGE_DATA_HPP
+/** \brief Gets the preferred windows size for display of an image.
+ *
+ * \param img   dimensions of the image
+ * \param initial_window   initial size of the window
+ * \return Returns the preferred window size.
+ */
+dimensions get_window_size(const dimensions& img, const dimensions& initial_window);
+
+#endif // WEBPVIEWER_SCALING_HPP

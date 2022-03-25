@@ -18,24 +18,18 @@
  -------------------------------------------------------------------------------
 */
 
-#ifndef WEBPVIEWER_IMAGE_DATA_HPP
-#define WEBPVIEWER_IMAGE_DATA_HPP
+#ifndef WEBPVIEWER_DIMENSIONS_HPP
+#define WEBPVIEWER_DIMENSIONS_HPP
 
-#include <cstddef>
-#include <cstdint>
-#include "dimensions.hpp"
-
-struct image_data
+struct dimensions
 {
-  image_data(uint8_t * data_ptr, const size_t size_, const dimensions dims);
-  image_data(const image_data& op) = delete;
-  image_data(image_data&& op);
-  image_data operator=(const image_data& op) = delete;
-  ~image_data();
+  int width;
+  int height;
 
-  uint8_t * data;
-  size_t data_size;
-  dimensions size;
+  bool can_contain(const dimensions& other) const
+  {
+    return (other.width <= width) && (other.height <= height);
+  }
 };
 
-#endif // WEBPVIEWER_IMAGE_DATA_HPP
+#endif // WEBPVIEWER_DIMENSIONS_HPP

@@ -5,7 +5,9 @@ project(webp-viewer)
 
 set(webp_viewer_sources
     buffer.cpp
+    dimensions.hpp
     image_data.cpp
+    scaling.cpp
     webp.cpp
     main.cpp)
 

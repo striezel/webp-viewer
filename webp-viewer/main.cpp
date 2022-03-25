@@ -24,6 +24,7 @@
 #include <vector>
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>
+#include "scaling.hpp"
 #include "webp.hpp"
 
 const int rcInvalidParameter = 1;
@@ -31,7 +32,7 @@ const int rcGlfwError = 2;
 
 void showVersion()
 {
-  std::cout << "webp-viewer, version 0.2.0, 2022-03-25\n"
+  std::cout << "webp-viewer, version 0.3.0, 2022-03-25\n"
             << "\n"
             << "Library versions:\n"
             << "  * libwebp: " << webp_version() << std::endl;
@@ -132,7 +133,8 @@ int main(int argc, char** argv)
     return rcGlfwError;
   }
 
-  GLFWwindow * window = glfwCreateWindow(640, 480, "webp viewer", nullptr, nullptr);
+  const auto window_size = get_window_size(dims.value(), get_maximum_window_size());
+  GLFWwindow * window = glfwCreateWindow(window_size.width, window_size.height, "webp viewer", nullptr, nullptr);
   if (!window)
   {
     glfwTerminate();

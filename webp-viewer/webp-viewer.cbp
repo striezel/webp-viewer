@@ -42,9 +42,12 @@
 		<Unit filename="../third-party/nonstd/expected.hpp" />
 		<Unit filename="buffer.cpp" />
 		<Unit filename="buffer.hpp" />
+		<Unit filename="dimensions.hpp" />
 		<Unit filename="image_data.cpp" />
 		<Unit filename="image_data.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="scaling.cpp" />
+		<Unit filename="scaling.hpp" />
 		<Unit filename="webp.cpp" />
 		<Unit filename="webp.hpp" />
 		<Extensions />
