@@ -2,7 +2,7 @@
 
 This directory and its subdirectories contain third-party libraries that are
 used by webp-viewer. Those libraries may or may not have the same license as it
-LGPL v3), but in any case they have licenses that are compatible to the
+(GPL v3), but in any case they have licenses that are compatible to the
 GPL v3.
 
 Currently, the following libraries are here:
