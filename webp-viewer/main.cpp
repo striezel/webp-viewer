@@ -31,7 +31,7 @@ const int rcGlfwError = 2;
 
 void showVersion()
 {
-  std::cout << "webp-viewer, version 0.1.1, 2022-03-24\n"
+  std::cout << "webp-viewer, version 0.2.0, 2022-03-25\n"
             << "\n"
             << "Library versions:\n"
             << "  * libwebp: " << webp_version() << std::endl;
@@ -119,6 +119,13 @@ int main(int argc, char** argv)
   std::cout << "Image size: width: " << dims.value().width << ", height: "
             << dims.value().height << std::endl;
 
+  const auto data = get_rgb_data(buffer.value(), dims.value());
+  if (!data.has_value())
+  {
+    std::cout << "Error: " << file << " could not be decoded as WebP file!\n";
+    return 3;
+  }
+
   if (!glfwInit())
   {
     std::cerr << "Initialization of GLFW failed!\n";
@@ -140,23 +147,37 @@ int main(int argc, char** argv)
             << "OpenGL vendor:   " << glGetString(GL_VENDOR) << "\n"
             << "OpenGL renderer: " << glGetString(GL_RENDERER) << "\n";
 
+  GLuint textureName = 0;
+  glGenTextures(1, &textureName);
+  glBindTexture(GL_TEXTURE_2D, textureName);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, dims.value().width, dims.value().height,
+               0, GL_RGB, GL_UNSIGNED_BYTE, data.value().data);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
   while (!glfwWindowShouldClose(window))
   {
     glClear(GL_COLOR_BUFFER_BIT);
-    glBegin(GL_TRIANGLES);
-      glColor3f(1.0f, 0, 0);
-      glVertex2d(-0.5, -0.5);
-      glColor3f(0, 1.0f, 0);
-      glVertex2d(0.5, -0.5);
-      glColor3f(0, 0, 1.0f);
-      glVertex2d(0.0, 0.5);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, textureName);
+    glBegin(GL_QUADS);
+      glColor3f(1.0, 1.0, 1.0);
+      glTexCoord2f(0.0, 0.0);
+      glVertex2d(-1.0, -1.0);
+      glTexCoord2f(1.0, 0.0);
+      glVertex2d(1.0, -1.0);
+      glTexCoord2f(1.0, 1.0);
+      glVertex2d(1.0, 1.0);
+      glTexCoord2f(0.0, 1.0);
+      glVertex2d(-1.0, 1.0);
     glEnd();
+    glDisable(GL_TEXTURE_2D);
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
-
+  glDeleteTextures(1, &textureName);
   glfwTerminate();
-
-  std::cout << "It's the end of the program." << std::endl;
   return 0;
 }

@@ -25,18 +25,13 @@
 #include <string>
 #include "../third-party/nonstd/expected.hpp"
 #include "buffer.hpp"
+#include "image_data.hpp"
 
 /** \brief Gets the WebP library version.
  *
  * \return Returns a string containing the libwebp version, e.g. "1.2.3".
  */
 std::string webp_version();
-
-struct dimensions
-{
-  int width;
-  int height;
-};
 
 /** \brief Gets the width and height of image data.
  *
@@ -55,15 +50,13 @@ std::optional<dimensions> get_dimensions(const uint8_t* data, size_t data_size);
  */
 nonstd::expected<buffer, std::string> read_file(const std::string& path);
 
-struct image_data
-{
-  // TODO: Free data with WebPFree() after use.
-
-  uint8_t * data;
-  size_t data_size;
-  dimensions size;
-};
-
-std::optional<image_data> get_rgb_data(const uint8_t* data, size_t data_size);
+/** \brief Decodes raw data into RGB data.
+ *
+ * \param data   contents read from the WebP file
+ * \param dims   dimensions of the image
+ * \return Returns the decoded image data in case of success.
+ *         Returns an empty optional on failure.
+ */
+std::optional<image_data> get_rgb_data(const buffer& data, const dimensions& dims);
 
 #endif // WEBPVIEWER_WEBP_HPP

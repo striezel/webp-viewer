@@ -72,14 +72,39 @@ nonstd::expected<buffer, std::string> read_file(const std::string& path)
   return buffer{ data, static_cast<size_t>(file_size) };
 }
 
-std::optional<image_data> get_rgb_data(const uint8_t* data, size_t data_size)
+std::optional<image_data> get_rgb_data(const buffer& data, const dimensions& dims)
 {
-  image_data result { nullptr, 0, { -1, -1 } };
+  /*image_data result { nullptr, 0, { -1, -1 } };
   uint8_t* pixels = WebPDecodeRGB(data, data_size,
                                         &result.size.width, &result.size.height);
   if (pixels == nullptr)
     return std::nullopt;
   result.data = pixels;
   result.data_size = 3 * result.size.width * result.size.height;
+  return result;*/
+
+  WebPDecoderConfig config;
+  if (!WebPInitDecoderConfig(&config))
+    return std::nullopt;
+
+  // Flip image vertically, because OpenGL expects it that way.
+  config.options.flip = 1;
+  config.output.colorspace = MODE_RGB;
+  // Set stride to multiple of four bytes, because OpenGL uses that internally
+  // for its textures. If this is not done, then the image is skewed.
+  const auto min_stride = dims.width * 3;
+  const auto stride_mode = min_stride % 4;
+  const size_t actual_stride = min_stride + (stride_mode != 0) * (4 - stride_mode);
+  const size_t buffer_size = actual_stride * dims.height;
+  image_data result { new uint8_t[buffer_size], buffer_size, dims };
+
+  config.output.u.RGBA.stride = actual_stride;
+  config.output.u.RGBA.size = buffer_size;
+  config.output.u.RGBA.rgba = result.data;
+  config.output.is_external_memory = 1;
+
+  if (WebPDecode(data.data(), data.size(), &config) != VP8StatusCode::VP8_STATUS_OK)
+    return std::nullopt;
+
   return result;
 }
