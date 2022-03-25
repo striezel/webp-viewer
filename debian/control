@@ -10,4 +10,4 @@ Vcs-Git: https://gitlab.com/striezel/webp-viewer.git
 Package: webp-viewer
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Loads and shows a WebP image.
+Description: Loads and shows WebP images.
