@@ -24,6 +24,7 @@
 #include <vector>
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>
+#include "glfw.hpp"
 #include "scaling.hpp"
 #include "webp.hpp"
 
@@ -37,7 +38,8 @@ void showVersion()
   std::cout << "webp-viewer, version 0.4.0, 2022-03-26\n"
             << "\n"
             << "Library versions:\n"
-            << "  * libwebp: " << webp_version() << std::endl;
+            << "  * libwebp: " << webp_version() << "\n"
+            << "  * glfw:    " << glfw_version() << std::endl;
 }
 
 void showHelp()

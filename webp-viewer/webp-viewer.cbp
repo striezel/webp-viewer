@@ -43,6 +43,8 @@
 		<Unit filename="buffer.cpp" />
 		<Unit filename="buffer.hpp" />
 		<Unit filename="dimensions.hpp" />
+		<Unit filename="glfw.cpp" />
+		<Unit filename="glfw.hpp" />
 		<Unit filename="image_data.cpp" />
 		<Unit filename="image_data.hpp" />
 		<Unit filename="main.cpp" />
