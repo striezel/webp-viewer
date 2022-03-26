@@ -159,6 +159,8 @@ int main(int argc, char** argv)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
+  std::cout << "Hint: Press ESC or Q to close the viewer window." << std::endl;
+
   while (!glfwWindowShouldClose(window))
   {
     glClear(GL_COLOR_BUFFER_BIT);
