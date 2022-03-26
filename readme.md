@@ -59,6 +59,10 @@ options:
   FILE            - Sets the file name of image to show.
 ```
 
+## History of changes
+
+A changelog is provided as [separate file](./changelog.md).
+
 ## Copyright and Licensing
 
 Copyright 2022  Dirk Stolle

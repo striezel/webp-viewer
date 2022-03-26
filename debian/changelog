@@ -1,3 +1,10 @@
+webp-viewer (0.4.0-1) UNRELEASED; urgency=medium
+
+  * Add hint about missing support for animations when the user attempts to load
+    a WebP image containing animations.
+
+ -- Dirk Stolle <striezel-dev@web.de>  Fri, 26 Mar 2022 01:41:30 +0100
+
 webp-viewer (0.3.0-1) UNRELEASED; urgency=medium
 
   * Initial release
