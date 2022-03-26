@@ -34,7 +34,7 @@ const int rcAnimationsNotSupported = 4;
 
 void showVersion()
 {
-  std::cout << "webp-viewer, version 0.4.0-pre, 2022-03-26\n"
+  std::cout << "webp-viewer, version 0.4.0, 2022-03-26\n"
             << "\n"
             << "Library versions:\n"
             << "  * libwebp: " << webp_version() << std::endl;
