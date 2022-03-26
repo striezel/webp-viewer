@@ -39,8 +39,8 @@ package_debian:
     - ./ci/01-install-dependencies.sh
   script:
     - ./ci/02-create-package.sh
-#  only:
-#    - tags
+  only:
+    - tags
   artifacts:
     paths:
       - "webp-viewer*.deb"
