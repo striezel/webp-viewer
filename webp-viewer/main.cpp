@@ -29,10 +29,12 @@
 
 const int rcInvalidParameter = 1;
 const int rcGlfwError = 2;
+const int rcInputOutputError = 3;
+const int rcAnimationsNotSupported = 4;
 
 void showVersion()
 {
-  std::cout << "webp-viewer, version 0.3.0, 2022-03-25\n"
+  std::cout << "webp-viewer, version 0.4.0-pre, 2022-03-26\n"
             << "\n"
             << "Library versions:\n"
             << "  * libwebp: " << webp_version() << std::endl;
@@ -108,23 +110,31 @@ int main(int argc, char** argv)
   if (!buffer.has_value())
   {
     std::cerr << "Error: Failed to read file!\n" << buffer.error() << std::endl;
-    return 3;
+    return rcInputOutputError;
   }
 
-  const auto dims = get_dimensions(buffer.value().data(), buffer.value().size());
+  const auto dims = get_dimensions(buffer.value());
   if (!dims.has_value())
   {
-    std::cout << "Error: " << file << " is not a WebP file!\n";
-    return 3;
+    std::cerr << "Error: " << file << " is not a WebP file!\n";
+    return rcInputOutputError;
   }
   std::cout << "Image size: width: " << dims.value().width << ", height: "
             << dims.value().height << std::endl;
+
+  const auto anims = has_animations(buffer.value());
+  if (anims.has_value() && anims.value())
+  {
+    std::cerr << "Error: " << file << " contains animations, but the viewer "
+              << "does not support loading WebP images with animations.\n";
+    return rcAnimationsNotSupported;
+  }
 
   const auto data = get_rgb_data(buffer.value(), dims.value());
   if (!data.has_value())
   {
     std::cout << "Error: " << file << " could not be decoded as WebP file!\n";
-    return 3;
+    return rcInputOutputError;
   }
 
   if (!glfwInit())

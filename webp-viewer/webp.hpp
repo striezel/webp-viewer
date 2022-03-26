@@ -35,12 +35,19 @@ std::string webp_version();
 
 /** \brief Gets the width and height of image data.
  *
- * \param data    pointer to the image date
- * \param data_size   size of the image data
+ * \param data    contents read from the WebP file
  * \return Returns the dimensions of the image, if it is valid.
  *         Returns an empty optional, if the data is invalid.
  */
-std::optional<dimensions> get_dimensions(const uint8_t* data, size_t data_size);
+std::optional<dimensions> get_dimensions(const buffer& data);
+
+/** \brief Checks whether image data contains animations.
+ *
+ * \param data    contents read from the WebP file
+ * \return Returns a bool indicating whether the file contains animations in
+ *         case of success. Returns an empty optional, if the data is invalid.
+ */
+std::optional<bool> has_animations(const buffer& data);
 
 /** \brief Reads the whole file into a buffer.
  *

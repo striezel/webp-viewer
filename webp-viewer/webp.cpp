@@ -30,10 +30,10 @@ std::string webp_version()
       + std::to_string(webp_version % 256);
 }
 
-std::optional<dimensions> get_dimensions(const uint8_t* data, size_t data_size)
+std::optional<dimensions> get_dimensions(const buffer& data)
 {
   dimensions result { -1, -1 };
-  const int code = WebPGetInfo(data, data_size, &result.width, &result.height);
+  const int code = WebPGetInfo(data.data(), data.size(), &result.width, &result.height);
   if (!code)
     return std::nullopt;
 
@@ -70,6 +70,16 @@ nonstd::expected<buffer, std::string> read_file(const std::string& path)
 
   stream.close();
   return buffer{ data, static_cast<size_t>(file_size) };
+}
+
+std::optional<bool> has_animations(const buffer& data)
+{
+  WebPBitstreamFeatures features;
+  features.has_animation = 0;
+  if (WebPGetFeatures(data.data(), data.size(), &features) != VP8StatusCode::VP8_STATUS_OK)
+    return std::nullopt;
+
+  return features.has_animation != 0;
 }
 
 std::optional<image_data> get_rgb_data(const buffer& data, const dimensions& dims)
