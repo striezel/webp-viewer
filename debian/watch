@@ -1,0 +1,5 @@
+version=4
+
+# Direct Git
+opts="mode=git" https://gitlab.com/striezel/webp-viewer.git \
+   refs/tags/v([\d\.]+) debian uupdate

@@ -31,3 +31,16 @@ fedora:
     - make -j4
     # tests
     - ctest -V
+
+package_debian:
+  image: debian:11-slim
+  stage: build
+  before_script:
+    - ./ci/01-install-dependencies.sh
+  script:
+    - ./ci/02-create-package.sh
+  only:
+    - tags
+  artifacts:
+    paths:
+      - "webp-viewer*.deb"

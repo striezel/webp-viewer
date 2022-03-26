@@ -1,0 +1,13 @@
+Source: webp-viewer
+Section: unknown
+Priority: optional
+Maintainer: Dirk Stolle <striezel-dev@web.de>
+Build-Depends: debhelper (>= 9), cmake, libgl-dev, libglfw3-dev, libwebp-dev
+Standards-Version: 4.1.2
+Homepage: https://gitlab.com/striezel/webp-viewer
+Vcs-Git: https://gitlab.com/striezel/webp-viewer.git
+
+Package: webp-viewer
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Loads and shows WebP images.
