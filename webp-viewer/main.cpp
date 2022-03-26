@@ -35,7 +35,7 @@ const int rcAnimationsNotSupported = 4;
 
 void showVersion()
 {
-  std::cout << "webp-viewer, version 0.4.0, 2022-03-26\n"
+  std::cout << "webp-viewer, version 0.4.1, 2022-03-26\n"
             << "\n"
             << "Library versions:\n"
             << "  * libwebp: " << webp_version() << "\n"
@@ -145,8 +145,14 @@ int main(int argc, char** argv)
     return rcGlfwError;
   }
 
-  const auto window_size = get_window_size(dims.value(), get_maximum_window_size());
-  GLFWwindow * window = glfwCreateWindow(window_size.width, window_size.height, "webp viewer", nullptr, nullptr);
+  const auto scaling = get_window_size(dims.value(), get_maximum_window_size());
+  std::string title = "webp viewer";
+  if (scaling.percentage < 100)
+  {
+    title += " (scaled: " + std::to_string(scaling.percentage) + " %)";
+  }
+  GLFWwindow * window = glfwCreateWindow(scaling.dims.width, scaling.dims.height,
+                                         title.c_str(), nullptr, nullptr);
   if (!window)
   {
     glfwTerminate();
@@ -156,6 +162,11 @@ int main(int argc, char** argv)
 
   glfwMakeContextCurrent(window);
   glfwSetKeyCallback(window, key_callback);
+  if (scaling.percentage == 100)
+  {
+    glfwSetWindowSizeLimits(window, scaling.dims.width, scaling.dims.height,
+                            scaling.dims.width, scaling.dims.height);
+  }
 
   std::cout << "OpenGL version:  " << glGetString(GL_VERSION) << "\n"
             << "OpenGL vendor:   " << glGetString(GL_VENDOR) << "\n"

@@ -1,5 +1,10 @@
 # Version history of webp-viewer
 
+## Version 0.4.1 (2022-03-26)
+
+If the displayed image was scaled down to fit into the windows, then the scaling
+factor is now shown in the title bar of the window.
+
 ## Version 0.4.0 (2022-03-26)
 
 Add hint about missing support for animations when the user attempts to load a

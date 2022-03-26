@@ -19,6 +19,7 @@
 */
 
 #include "scaling.hpp"
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <GLFW/glfw3.h>
@@ -40,15 +41,18 @@ dimensions get_maximum_window_size()
   return { width - 5, height - 30 };
 }
 
-dimensions get_window_size(const dimensions& img, const dimensions& initial_window)
+scaling_data get_window_size(const dimensions& img, const dimensions& initial_window)
 {
   if (initial_window.can_contain(img))
-    return img;
+    return { img, 100 };
 
   const double w_ratio = static_cast<double>(img.width) / initial_window.width;
   const double h_ratio = static_cast<double>(img.height) / initial_window.height;
   const double max_ratio = w_ratio > h_ratio ? w_ratio : h_ratio;
 
-  return { static_cast<int>(std::ceil(img.width / max_ratio)),
-           static_cast<int>(std::ceil(img.height / max_ratio)) };
+  return {
+           { static_cast<int>(std::ceil(img.width / max_ratio)),
+             static_cast<int>(std::ceil(img.height / max_ratio)) },
+           std::max(1u, static_cast<unsigned int>(std::floor(100.0 / max_ratio)))
+         };
 }

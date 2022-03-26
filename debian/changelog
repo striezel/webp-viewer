@@ -1,3 +1,10 @@
+webp-viewer (0.4.1-1) UNRELEASED; urgency=medium
+
+  * If the displayed image was scaled down to fit into the windows, then the
+    scaling factor is now shown in the title bar of the window.
+
+ -- Dirk Stolle <striezel-dev@web.de>  Fri, 26 Mar 2022 22:17:47 +0100
+
 webp-viewer (0.4.0-1) UNRELEASED; urgency=medium
 
   * Add hint about missing support for animations when the user attempts to load

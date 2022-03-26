@@ -29,12 +29,18 @@ const dimensions default_window_size = { 640, 480 };
 /// Gets the maximum possible window size.
 dimensions get_maximum_window_size();
 
+struct scaling_data
+{
+  dimensions dims;         /**< preferred window size */
+  unsigned int percentage; /**< scaling factor in percent, rounded down */
+};
+
 /** \brief Gets the preferred windows size for display of an image.
  *
  * \param img   dimensions of the image
  * \param initial_window   initial size of the window
- * \return Returns the preferred window size.
+ * \return Returns the preferred window size and the scaling factor.
  */
-dimensions get_window_size(const dimensions& img, const dimensions& initial_window);
+scaling_data get_window_size(const dimensions& img, const dimensions& initial_window);
 
 #endif // WEBPVIEWER_SCALING_HPP
