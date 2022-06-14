@@ -49,6 +49,14 @@ std::optional<dimensions> get_dimensions(const buffer& data);
  */
 std::optional<bool> has_animations(const buffer& data);
 
+/** \brief Checks whether image data contains an alpha channel.
+ *
+ * \param data    contents read from the WebP file
+ * \return Returns a bool indicating whether the file contains an alpha channel
+ *         in case of success. Returns an empty optional, if the data is invalid.
+ */
+std::optional<bool> has_alpha_channel(const buffer& data);
+
 /** \brief Reads the whole file into a buffer.
  *
  * \param path   the path of the file
@@ -57,13 +65,16 @@ std::optional<bool> has_animations(const buffer& data);
  */
 nonstd::expected<buffer, std::string> read_file(const std::string& path);
 
-/** \brief Decodes raw data into RGB data.
+/// possible colour spaces to use for WebP decoding
+enum class colour_space { RGB, RGBA };
+
+/** \brief Decodes raw data into RGB or RGBA data.
  *
  * \param data   contents read from the WebP file
  * \param dims   dimensions of the image
  * \return Returns the decoded image data in case of success.
  *         Returns an empty optional on failure.
  */
-std::optional<image_data> get_rgb_data(const buffer& data, const dimensions& dims);
+std::optional<image_data> get_image_data(const buffer& data, const dimensions& dims, const colour_space cs);
 
 #endif // WEBPVIEWER_WEBP_HPP

@@ -1,5 +1,9 @@
 # Version history of webp-viewer
 
+## Version 0.4.2 (2022-06-15)
+
+WebP images with alpha channel will now be shown with alpha channel data.
+
 ## Version 0.4.1 (2022-03-26)
 
 If the displayed image was scaled down to fit into the windows, then the scaling

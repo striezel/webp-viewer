@@ -35,7 +35,7 @@ const int rcAnimationsNotSupported = 4;
 
 void showVersion()
 {
-  std::cout << "webp-viewer, version 0.4.1, 2022-03-26\n"
+  std::cout << "webp-viewer, version 0.4.2, 2022-06-15\n"
             << "\n"
             << "Library versions:\n"
             << "  * libwebp: " << webp_version() << "\n"
@@ -132,7 +132,9 @@ int main(int argc, char** argv)
     return rcAnimationsNotSupported;
   }
 
-  const auto data = get_rgb_data(buffer.value(), dims.value());
+  const bool has_alpha = has_alpha_channel(buffer.value()).value_or(false);
+  const colour_space cs = has_alpha ? colour_space::RGBA : colour_space::RGB;
+  const auto data = get_image_data(buffer.value(), dims.value(), cs);
   if (!data.has_value())
   {
     std::cout << "Error: " << file << " could not be decoded as WebP file!\n";
@@ -175,8 +177,10 @@ int main(int argc, char** argv)
   GLuint textureName = 0;
   glGenTextures(1, &textureName);
   glBindTexture(GL_TEXTURE_2D, textureName);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, dims.value().width, dims.value().height,
-               0, GL_RGB, GL_UNSIGNED_BYTE, data.value().data);
+  const GLint internal_format = has_alpha ? GL_RGBA8 : GL_RGB8;
+  const GLenum format = has_alpha ? GL_RGBA : GL_RGB;
+  glTexImage2D(GL_TEXTURE_2D, 0, internal_format, dims.value().width, dims.value().height,
+               0, format, GL_UNSIGNED_BYTE, data.value().data);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
@@ -187,6 +191,8 @@ int main(int argc, char** argv)
   while (!glfwWindowShouldClose(window))
   {
     glClear(GL_COLOR_BUFFER_BIT);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, textureName);
     glBegin(GL_QUADS);
@@ -201,6 +207,7 @@ int main(int argc, char** argv)
       glVertex2d(-1.0, 1.0);
     glEnd();
     glDisable(GL_TEXTURE_2D);
+    glDisable(GL_BLEND);
     glfwSwapBuffers(window);
     glfwPollEvents();
   }

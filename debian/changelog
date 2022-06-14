@@ -1,3 +1,9 @@
+webp-viewer (0.4.2-1) UNRELEASED; urgency=medium
+
+  * WebP images with alpha channel will now be shown with alpha channel data.
+
+ -- Dirk Stolle <striezel-dev@web.de>  Wed, 15 Jun 2022 00:45:56 +0200
+
 webp-viewer (0.4.1-1) UNRELEASED; urgency=medium
 
   * If the displayed image was scaled down to fit into the windows, then the

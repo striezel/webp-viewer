@@ -82,27 +82,28 @@ std::optional<bool> has_animations(const buffer& data)
   return features.has_animation != 0;
 }
 
-std::optional<image_data> get_rgb_data(const buffer& data, const dimensions& dims)
+std::optional<bool> has_alpha_channel(const buffer& data)
 {
-  /*image_data result { nullptr, 0, { -1, -1 } };
-  uint8_t* pixels = WebPDecodeRGB(data, data_size,
-                                        &result.size.width, &result.size.height);
-  if (pixels == nullptr)
+  WebPBitstreamFeatures features;
+  features.has_alpha = 0;
+  if (WebPGetFeatures(data.data(), data.size(), &features) != VP8StatusCode::VP8_STATUS_OK)
     return std::nullopt;
-  result.data = pixels;
-  result.data_size = 3 * result.size.width * result.size.height;
-  return result;*/
 
+  return features.has_alpha != 0;
+}
+
+std::optional<image_data> get_image_data(const buffer& data, const dimensions& dims, const colour_space cs)
+{
   WebPDecoderConfig config;
   if (!WebPInitDecoderConfig(&config))
     return std::nullopt;
 
   // Flip image vertically, because OpenGL expects it that way.
   config.options.flip = 1;
-  config.output.colorspace = MODE_RGB;
+  config.output.colorspace = (cs == colour_space::RGB) ? MODE_RGB : MODE_RGBA;
   // Set stride to multiple of four bytes, because OpenGL uses that internally
   // for its textures. If this is not done, then the image is skewed.
-  const auto min_stride = dims.width * 3;
+  const auto min_stride = dims.width * ((cs == colour_space::RGB) ? 3 : 4);
   const auto stride_mode = min_stride % 4;
   const size_t actual_stride = min_stride + (stride_mode != 0) * (4 - stride_mode);
   const size_t buffer_size = actual_stride * dims.height;
