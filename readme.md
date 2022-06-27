@@ -1,5 +1,10 @@
 # webp-viewer - a very simple WebP image viewer
 
+[![GitHub CI Clang status](https://github.com/striezel/webp-viewer/workflows/Clang/badge.svg)](https://github.com/striezel/webp-viewer/actions)
+[![GitHub CI GCC status](https://github.com/striezel/webp-viewer/workflows/GCC/badge.svg)](https://github.com/striezel/webp-viewer/actions)
+[![GitHub CI MSYS2 status](https://github.com/striezel/webp-viewer/workflows/MSYS2/badge.svg)](https://github.com/striezel/webp-viewer/actions)
+[![GitLab pipeline status](https://gitlab.com/striezel/webp-viewer/badges/main/pipeline.svg)](https://gitlab.com/striezel/webp-viewer/)
+
 `webp-viewer` is a program that loads and displays a WebP image.
 
 Animations are currently not supported, and probably never will be.
@@ -50,6 +55,11 @@ Starting in the root directory of the source, you can do the following steps:
 If you want to run the test suite, too, then there is one more step:
 
     ctest -V
+
+## Building from source on Windows
+
+For information how to build webp-viewer on Windows, see the
+[MSYS2 build instructions](./documentation/msys2-build.md).
 
 ## Usage
 
