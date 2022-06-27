@@ -7,3 +7,6 @@ enable_testing()
 
 # Recurse into subdirectory for the main executable.
 add_subdirectory (webp-viewer)
+
+# Recurse into subdirectory for tests.
+add_subdirectory (tests)

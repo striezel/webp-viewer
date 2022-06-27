@@ -11,18 +11,19 @@ Animations are currently not supported, and probably never will be.
 To build webp-viewer from source you need a C++ compiler with support for C++17,
 CMake 3.8 or later, OpenGL, the GLFW library and the libwebp library.
 pkg-config is required to make it easier to find compiler options for the
-installed libraries.
+installed libraries. Additionally, the program uses Catch (C++ Automated Test
+Cases in Headers) to perform some tests.
 
 It also helps to have Git, a distributed version control system, on your build
 system to get the latest source code directly from the Git repository.
 
 All of that can usually be installed be typing
 
-    apt-get install cmake g++ git libgl-dev libglfw3-dev libwebp-dev pkg-config
+    apt-get install catch cmake g++ git libgl-dev libglfw3-dev libwebp-dev pkg-config
 
 or
 
-    yum install cmake gcc-c++ git glfw-devel libwebp-devel pkgconfig
+    yum install catch-devel cmake gcc-c++ git glfw-devel libwebp-devel pkgconfig
 
 into a root terminal.
 
@@ -45,6 +46,10 @@ Starting in the root directory of the source, you can do the following steps:
     cd build
     cmake ../
     make -j4
+
+If you want to run the test suite, too, then there is one more step:
+
+    ctest -V
 
 ## Usage
 
