@@ -1,0 +1,12 @@
+# This Dockerfile builds the image used during the fedora build job on GitLab.
+FROM fedora:35
+LABEL maintainer="Dirk Stolle <striezel-dev@web.de>"
+# Always update any existing packages first.
+RUN yum update -y
+# Install build toolchain and dependencies.
+RUN yum install -y catch-devel cmake gcc-c++ glfw-devel libwebp-devel pkgconfig
+# Adjust environment variables for preferred compilers.
+ENV CXX=g++
+ENV CC=gcc
+RUN export CXX=g++
+RUN export CC=gcc
