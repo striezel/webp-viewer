@@ -40,6 +40,12 @@ else ()
   message ( FATAL_ERROR "GLFW was not found!" )
 endif ()
 
+# Link static library of Catch2 v3, if necessary.
+if (HAS_CATCH_V3)
+    find_package(Catch2 3 REQUIRED)
+    target_link_libraries(webp-viewer-tests Catch2::Catch2WithMain)
+endif ()
+
 
 # add test case
 add_test(NAME webp-viewer-tests
