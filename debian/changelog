@@ -1,3 +1,11 @@
+webp-viewer (0.4.3-1) UNRELEASED; urgency=medium
+
+  * The viewer will now emit a warning on the standard output, if the size of
+    the monitor cannot be determined. As before, it will then continue to
+    assume the default size of 640 x 480 pixels.
+
+ -- Dirk Stolle <striezel-dev@web.de>  Fri, 19 Aug 2022 18:06:55 +0200
+
 webp-viewer (0.4.2-1) UNRELEASED; urgency=medium
 
   * WebP images with alpha channel will now be shown with alpha channel data.
