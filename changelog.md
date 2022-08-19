@@ -1,5 +1,11 @@
 # Version history of webp-viewer
 
+## Version 0.4.3 (2022-08-19)
+
+The viewer will now emit a warning on the standard output, if the size of the
+monitor cannot be determined. As before, it will then continue to assume the
+default size of 640 x 480 pixels.
+
 ## Version 0.4.2 (2022-06-15)
 
 WebP images with alpha channel will now be shown with alpha channel data.

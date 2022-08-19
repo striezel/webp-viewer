@@ -28,7 +28,11 @@ dimensions get_maximum_window_size()
 {
   GLFWmonitor * mon = glfwGetPrimaryMonitor();
   if (mon == nullptr)
+  {
+    std::clog << "Warning: Could not get primary monitor handle. Assuming "
+              << "default max. window size of " << default_window_size << ".\n";
     return default_window_size;
+  }
 
   int x_pos = 0;
   int y_pos = 0;
@@ -36,7 +40,12 @@ dimensions get_maximum_window_size()
   int height = 0;
   glfwGetMonitorWorkarea(mon, &x_pos, &y_pos, &width, &height);
   if ((width <= 5) || (height <= 30))
+  {
+    std::clog << "Warning: Monitor work area is ridiculously small. Assuming "
+              << "default max. window size of " << default_window_size << ".\n";
     return default_window_size;
+  }
+
 
   return { width - 5, height - 30 };
 }

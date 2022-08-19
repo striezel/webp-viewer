@@ -19,6 +19,7 @@
 */
 
 #include "locate_catch.hpp"
+#include <sstream>
 #include "../../webp-viewer/dimensions.hpp"
 
 TEST_CASE("dimensions")
@@ -74,6 +75,49 @@ TEST_CASE("dimensions")
 
       REQUIRE_FALSE( dim1.can_contain(dim2) );
       REQUIRE_FALSE( dim2.can_contain(dim1) );
+    }
+  }
+
+  SECTION("stream output operator")
+  {
+    SECTION("4 x 3")
+    {
+      std::ostringstream stream;
+      const dimensions dim{4, 3};
+      stream << dim;
+      REQUIRE( stream.str() == "4 px x 3 px" );
+    }
+
+    SECTION("640 x 480")
+    {
+      std::ostringstream stream;
+      const dimensions dim{640, 480};
+      stream << dim;
+      REQUIRE( stream.str() == "640 px x 480 px" );
+    }
+
+    SECTION("1920 x 1080")
+    {
+      std::ostringstream stream;
+      const dimensions dim{1920, 1080};
+      stream << dim;
+      REQUIRE( stream.str() == "1920 px x 1080 px" );
+    }
+
+    SECTION("8192 x 4320")
+    {
+      std::ostringstream stream;
+      const dimensions dim{8192, 4320};
+      stream << dim;
+      REQUIRE( stream.str() == "8192 px x 4320 px" );
+    }
+
+    SECTION("mixed with other inputs")
+    {
+      std::ostringstream stream;
+      const dimensions dim{1440, 900};
+      stream << "The resolution is " << dim << ", is it?";
+      REQUIRE( stream.str() == "The resolution is 1440 px x 900 px, is it?" );
     }
   }
 }

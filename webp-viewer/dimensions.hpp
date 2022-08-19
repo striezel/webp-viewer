@@ -21,15 +21,29 @@
 #ifndef WEBPVIEWER_DIMENSIONS_HPP
 #define WEBPVIEWER_DIMENSIONS_HPP
 
+#include <ostream>
+
 struct dimensions
 {
-  int width;
-  int height;
+  int width;  /**< width in pixels */
+  int height; /**< height in pixels */
 
+  /** \brief Checks whether this instance is big enough to contain other dimensions.
+   *
+   * \param other  the other dimension to contain
+   * \return Returns true, if this instance can contain the other. i. e. this
+   *         is equal or greater in both width and height than other.
+   *         Returns false otherwise.
+   */
   bool can_contain(const dimensions& other) const
   {
     return (other.width <= width) && (other.height <= height);
   }
 };
+
+inline std::ostream& operator<<(std::ostream& s, const dimensions& dim)
+{
+  return s << dim.width << " px x " << dim.height << " px";
+}
 
 #endif // WEBPVIEWER_DIMENSIONS_HPP
