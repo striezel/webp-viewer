@@ -39,7 +39,13 @@ bool isGithubActions()
   return hasEnvVar("GITHUB_ACTIONS");
 }
 
+bool isPackageBuilder()
+{
+  // debuild / dpkg-buildpackage usually sets this variable.
+  return hasEnvVar("SOURCE_DATE_EPOCH");
+}
+
 bool runsInCi()
 {
-  return isGitlabCi() || isGithubActions();
+  return isGitlabCi() || isGithubActions() || isPackageBuilder();
 }
