@@ -31,7 +31,7 @@ then
   exit 1
 fi
 
-apt-get -y install --no-install-recommends cmake g++ libgl-dev libglfw3-dev libwebp-dev pkg-config
+apt-get -y install --no-install-recommends catch cmake g++ libgl-dev libglfw3-dev libwebp-dev pkg-config
 if [ $? -ne 0 ]
 then
   echo "ERROR: Could not install build dependencies!"
