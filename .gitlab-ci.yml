@@ -72,6 +72,7 @@ package_debian:
   before_script:
     - ./ci/01-install-dependencies.sh
   script:
+    - export GITLAB_CI=true
     - ./ci/02-create-package.sh
   only:
     - tags
