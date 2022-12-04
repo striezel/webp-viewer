@@ -20,6 +20,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-Wshadow" />
 			<Add option="-pedantic-errors" />
 			<Add option="-pedantic" />
 			<Add option="-Wextra" />
