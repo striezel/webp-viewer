@@ -1,12 +1,12 @@
 # This Dockerfile builds the image used during the debian build job on GitLab.
-FROM debian:11-slim
+FROM debian:12-slim
 LABEL maintainer="Dirk Stolle <striezel-dev@web.de>"
 # Always update any existing packages first.
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade -y
 # Install build toolchain and dependencies.
-RUN apt-get install -y catch cmake g++-10 libgl-dev libglfw3-dev libwebp-dev pkg-config
-ENV CXX=g++-10
-ENV CC=gcc-10
-RUN export CXX=g++-10
-RUN export CC=gcc-10
+RUN apt-get install -y catch2 cmake g++-12 libgl-dev libglfw3-dev libwebp-dev pkg-config
+ENV CXX=g++-12
+ENV CC=gcc-12
+RUN export CXX=g++-12
+RUN export CC=gcc-12
