@@ -96,7 +96,7 @@ nonstd::expected<window_data, int> update_image()
   glfwDestroyWindow(current_window.window);
   // remove old texture name
   glDeleteTextures(1, &current_window.texture);
-  const auto new_window = create_window_for_image(files[requested_file_index]);
+  const auto new_window = create_window_for_image(files[requested_file_index], requested_file_index, files.size());
   if (!new_window.has_value())
   {
     return nonstd::make_unexpected(new_window.error());
@@ -159,7 +159,7 @@ int main(int argc, char** argv)
     return rcGlfwError;
   }
 
-  const auto window_info = create_window_for_image(files[0]);
+  const auto window_info = create_window_for_image(files[0], 0, files.size());
   if (!window_info.has_value())
   {
     glfwTerminate();

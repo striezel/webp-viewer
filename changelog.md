@@ -7,7 +7,9 @@ image files as arguments, and the viewer will allow to cycle through those files
 with the <kbd>D</kbd> or <kbd>&#8594;</kbd> key and <kbd>A</kbd> or
 <kbd>&#8592;</kbd> key, respectively.
 
-Furthermore, the name of the image file is now shown in the window title.
+Furthermore, the name of the image file is now shown in the window title, and if
+the program was called with more than one image file to show, then the index of
+the image is shown in the title, too.
 
 ## Version 0.4.3 (2022-08-19)
 

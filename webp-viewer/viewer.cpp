@@ -25,7 +25,29 @@
 #include "scaling.hpp"
 #include "webp.hpp"
 
-nonstd::expected<window_data, int> create_window_for_image(const std::string& file)
+std::string generate_window_title(const std::string& file, const scaling_data& scaling, const std::size_t current, const std::size_t total)
+{
+  std::string title;
+  try
+  {
+    title = std::filesystem::path{file}.filename().string();
+  }
+  catch(...)
+  {
+    title = "webp viewer";
+  }
+  if (scaling.percentage < 100)
+  {
+    title += " (scaled: " + std::to_string(scaling.percentage) + " %)";
+  }
+  if (total > 1)
+  {
+    title += ", " + std::to_string(current + 1) + " / " + std::to_string(total);
+  }
+  return title;
+}
+
+nonstd::expected<window_data, int> create_window_for_image(const std::string& file, const std::size_t current, const std::size_t total)
 {
   const auto buffer = read_file(file);
   if (!buffer.has_value())
@@ -60,19 +82,7 @@ nonstd::expected<window_data, int> create_window_for_image(const std::string& fi
   }
 
   const auto scaling = get_window_size(dims.value(), get_maximum_window_size());
-  std::string title;
-  try
-  {
-    title = std::filesystem::path{file}.filename().string();
-  }
-  catch(...)
-  {
-    title = "webp viewer";
-  }
-  if (scaling.percentage < 100)
-  {
-    title += " (scaled: " + std::to_string(scaling.percentage) + " %)";
-  }
+  const auto title = generate_window_title(file, scaling, current, total);
   GLFWwindow * window = glfwCreateWindow(scaling.dims.width, scaling.dims.height,
                                          title.c_str(), nullptr, nullptr);
   if (!window)

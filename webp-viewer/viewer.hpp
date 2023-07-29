@@ -33,11 +33,13 @@ struct window_data
 
 /** \brief Creates a viewer window showing the given WebP image.
  *
- * \param file   path to the WebP image file
+ * \param file     path to the WebP image file
+ * \param current  zero-based index of the current image file
+ * \param total    total number of images available
  * \return Returns windows data containing a non-null pointer to a window and a
  *         non-zero OpenGL texture name in case of success.
  *         Returns an exit code, if an error occurred.
  */
-nonstd::expected<window_data, int> create_window_for_image(const std::string& file);
+nonstd::expected<window_data, int> create_window_for_image(const std::string& file, const std::size_t current, const std::size_t total);
 
 #endif // WEBPVIEWER_VIEWER_HPP
