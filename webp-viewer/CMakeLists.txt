@@ -10,6 +10,7 @@ set(webp_viewer_sources
     gl_util.cpp
     image_data.cpp
     scaling.cpp
+    viewer.cpp
     webp.cpp
     main.cpp)
 

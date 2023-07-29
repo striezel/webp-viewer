@@ -21,13 +21,10 @@
 #include <filesystem>
 #include <iostream>
 #include <string>
-#include <vector>
-#include <GLFW/glfw3.h>
-#include <GL/gl.h>
 #include "glfw.hpp"
 #include "gl_util.hpp"
 #include "return_codes.hpp"
-#include "scaling.hpp"
+#include "viewer.hpp"
 #include "webp.hpp"
 
 void showVersion()
@@ -106,91 +103,32 @@ int main(int argc, char** argv)
     return rcInvalidParameter;
   }
 
-  const auto buffer = read_file(file);
-  if (!buffer.has_value())
-  {
-    std::cerr << "Error: Failed to read file!\n" << buffer.error() << std::endl;
-    return rcInputOutputError;
-  }
-
-  const auto dims = get_dimensions(buffer.value());
-  if (!dims.has_value())
-  {
-    std::cerr << "Error: " << file << " is not a WebP file!\n";
-    return rcInputOutputError;
-  }
-  std::cout << "Image size: width: " << dims.value().width << ", height: "
-            << dims.value().height << std::endl;
-
-  const auto anims = has_animations(buffer.value());
-  if (anims.has_value() && anims.value())
-  {
-    std::cerr << "Error: " << file << " contains animations, but the viewer "
-              << "does not support loading WebP images with animations.\n";
-    return rcAnimationsNotSupported;
-  }
-
-  const bool has_alpha = has_alpha_channel(buffer.value()).value_or(false);
-  const colour_space cs = has_alpha ? colour_space::RGBA : colour_space::RGB;
-  const auto data = get_image_data(buffer.value(), dims.value(), cs);
-  if (!data.has_value())
-  {
-    std::cout << "Error: " << file << " could not be decoded as WebP file!\n";
-    return rcInputOutputError;
-  }
-
   if (!glfwInit())
   {
     std::cerr << "Initialization of GLFW failed!\n";
     return rcGlfwError;
   }
 
-  const auto scaling = get_window_size(dims.value(), get_maximum_window_size());
-  std::string title = "webp viewer";
-  if (scaling.percentage < 100)
-  {
-    title += " (scaled: " + std::to_string(scaling.percentage) + " %)";
-  }
-  GLFWwindow * window = glfwCreateWindow(scaling.dims.width, scaling.dims.height,
-                                         title.c_str(), nullptr, nullptr);
-  if (!window)
+  const auto window_info = create_window_for_image(file);
+  if (!window_info.has_value())
   {
     glfwTerminate();
-    std::cerr << "Window creation failed!\n";
-    return rcGlfwError;
-  }
-
-  glfwMakeContextCurrent(window);
-  glfwSetKeyCallback(window, key_callback);
-  if (scaling.percentage == 100)
-  {
-    glfwSetWindowSizeLimits(window, scaling.dims.width, scaling.dims.height,
-                            scaling.dims.width, scaling.dims.height);
+    return window_info.error();
   }
 
   show_open_gl_info();
 
-  GLuint textureName = 0;
-  glGenTextures(1, &textureName);
-  glBindTexture(GL_TEXTURE_2D, textureName);
-  const GLint internal_format = has_alpha ? GL_RGBA8 : GL_RGB8;
-  const GLenum format = has_alpha ? GL_RGBA : GL_RGB;
-  glTexImage2D(GL_TEXTURE_2D, 0, internal_format, dims.value().width, dims.value().height,
-               0, format, GL_UNSIGNED_BYTE, data.value().data);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+  glfwSetKeyCallback(window_info.value().window, key_callback);
 
   std::cout << "Hint: Press ESC or Q to close the viewer window." << std::endl;
 
-  while (!glfwWindowShouldClose(window))
+  while (!glfwWindowShouldClose(window_info.value().window))
   {
     glClear(GL_COLOR_BUFFER_BIT);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, textureName);
+    glBindTexture(GL_TEXTURE_2D, window_info.value().texture);
     glBegin(GL_QUADS);
       glColor3f(1.0, 1.0, 1.0);
       glTexCoord2f(0.0, 0.0);
@@ -204,10 +142,10 @@ int main(int argc, char** argv)
     glEnd();
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_BLEND);
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(window_info.value().window);
     glfwPollEvents();
   }
-  glDeleteTextures(1, &textureName);
+  glDeleteTextures(1, &window_info.value().texture);
   glfwTerminate();
   return 0;
 }
