@@ -72,6 +72,7 @@ options:
   -? | --help     - Shows this help message.
   -v | --version  - Shows version information.
   FILE            - Sets the file name of image to show.
+                    Can be repeated multiple times to view several images.
 ```
 
 ## History of changes
@@ -80,7 +81,7 @@ A changelog is provided as [separate file](./changelog.md).
 
 ## Copyright and Licensing
 
-Copyright 2022  Dirk Stolle
+Copyright 2022, 2023  Dirk Stolle
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

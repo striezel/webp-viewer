@@ -1,5 +1,12 @@
 # Version history of webp-viewer
 
+## Version 0.5.0-pre (2023-07-30)
+
+The viewer can now handle multiple files. A user can now pass paths to multiple
+image files as arguments, and the viewer will allow to cycle through those files
+with the <kbd>D</kbd> or <kbd>&#8594;</kbd> key and <kbd>A</kbd> or
+<kbd>&#8592;</kbd> key, respectively.
+
 ## Version 0.4.3 (2022-08-19)
 
 The viewer will now emit a warning on the standard output, if the size of the

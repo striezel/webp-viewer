@@ -39,8 +39,7 @@ nonstd::expected<window_data, int> create_window_for_image(const std::string& fi
     std::cerr << "Error: " << file << " is not a WebP file!\n";
     return nonstd::make_unexpected(rcInputOutputError);
   }
-  std::cout << "Image size: width: " << dims.value().width << ", height: "
-            << dims.value().height << std::endl;
+  std::cout << "Image size: " << dims.value() << std::endl;
 
   const auto anims = has_animations(buffer.value());
   if (anims.has_value() && anims.value())
@@ -74,8 +73,6 @@ nonstd::expected<window_data, int> create_window_for_image(const std::string& fi
   }
 
   glfwMakeContextCurrent(window);
-  // TODO: Set callback in main() function.
-  //glfwSetKeyCallback(window, key_callback);
   if (scaling.percentage == 100)
   {
     glfwSetWindowSizeLimits(window, scaling.dims.width, scaling.dims.height,
