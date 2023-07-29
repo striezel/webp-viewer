@@ -19,6 +19,7 @@
 */
 
 #include "viewer.hpp"
+#include <filesystem>
 #include <iostream>
 #include "return_codes.hpp"
 #include "scaling.hpp"
@@ -59,7 +60,15 @@ nonstd::expected<window_data, int> create_window_for_image(const std::string& fi
   }
 
   const auto scaling = get_window_size(dims.value(), get_maximum_window_size());
-  std::string title = "webp viewer";
+  std::string title;
+  try
+  {
+    title = std::filesystem::path{file}.filename().string();
+  }
+  catch(...)
+  {
+    title = "webp viewer";
+  }
   if (scaling.percentage < 100)
   {
     title += " (scaled: " + std::to_string(scaling.percentage) + " %)";

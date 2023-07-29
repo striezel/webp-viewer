@@ -7,6 +7,8 @@ image files as arguments, and the viewer will allow to cycle through those files
 with the <kbd>D</kbd> or <kbd>&#8594;</kbd> key and <kbd>A</kbd> or
 <kbd>&#8592;</kbd> key, respectively.
 
+Furthermore, the name of the image file is now shown in the window title.
+
 ## Version 0.4.3 (2022-08-19)
 
 The viewer will now emit a warning on the standard output, if the size of the
