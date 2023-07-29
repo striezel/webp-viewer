@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the WebP viewer.
-    Copyright (C) 2022  Dirk Stolle
+    Copyright (C) 2022, 2023  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,13 +25,10 @@
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>
 #include "glfw.hpp"
+#include "gl_util.hpp"
+#include "return_codes.hpp"
 #include "scaling.hpp"
 #include "webp.hpp"
-
-const int rcInvalidParameter = 1;
-const int rcGlfwError = 2;
-const int rcInputOutputError = 3;
-const int rcAnimationsNotSupported = 4;
 
 void showVersion()
 {
@@ -171,9 +168,7 @@ int main(int argc, char** argv)
                             scaling.dims.width, scaling.dims.height);
   }
 
-  std::cout << "OpenGL version:  " << glGetString(GL_VERSION) << "\n"
-            << "OpenGL vendor:   " << glGetString(GL_VENDOR) << "\n"
-            << "OpenGL renderer: " << glGetString(GL_RENDERER) << "\n";
+  show_open_gl_info();
 
   GLuint textureName = 0;
   glGenTextures(1, &textureName);

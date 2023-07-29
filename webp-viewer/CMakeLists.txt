@@ -7,6 +7,7 @@ set(webp_viewer_sources
     buffer.cpp
     dimensions.hpp
     glfw.cpp
+    gl_util.cpp
     image_data.cpp
     scaling.cpp
     webp.cpp

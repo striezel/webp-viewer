@@ -47,11 +47,14 @@
 		<Unit filename="buffer.cpp" />
 		<Unit filename="buffer.hpp" />
 		<Unit filename="dimensions.hpp" />
+		<Unit filename="gl_util.cpp" />
+		<Unit filename="gl_util.hpp" />
 		<Unit filename="glfw.cpp" />
 		<Unit filename="glfw.hpp" />
 		<Unit filename="image_data.cpp" />
 		<Unit filename="image_data.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="return_codes.hpp" />
 		<Unit filename="scaling.cpp" />
 		<Unit filename="scaling.hpp" />
 		<Unit filename="webp.cpp" />
