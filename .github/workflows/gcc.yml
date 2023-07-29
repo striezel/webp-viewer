@@ -6,6 +6,7 @@ jobs:
   gcc:
     runs-on: ubuntu-22.04
     strategy:
+      fail-fast: false
       matrix:
         version: [9, 10, 11, 12]
     steps:
