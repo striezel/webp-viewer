@@ -75,6 +75,19 @@ options:
                     Can be repeated multiple times to view several images.
 ```
 
+## Keyboard shortcuts
+
+The webp-viewer currently supports the following shortcuts:
+
+| Key                               | Effect               |
+|-----------------------------------|----------------------|
+| <kbd>ESC</kbd> / <kbd>Q</kbd>     | Closes the viewer.   |
+| <kbd>A</kbd> / <kbd>&#8592;</kbd> | Show previous image. |
+| <kbd>D</kbd> / <kbd>&#8594;</kbd> | Show next image.     |
+
+The previous and next image shortcuts only work when more than one image was
+given as argument. (They would be useless for cases with only one image.)
+
 ## History of changes
 
 A changelog is provided as [separate file](./changelog.md).
