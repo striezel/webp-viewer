@@ -1,3 +1,16 @@
+webp-viewer (0.5.0-1) UNRELEASED; urgency=medium
+
+  * The viewer can now handle multiple files. A user can now pass paths to
+    multiple image files as arguments, and the viewer will allow to cycle
+    through those files with the D or right arrow key and A or left arrow key,
+    respectively.
+
+  * Furthermore, the name of the image file is now shown in the window title,
+    and if the program was called with more than one image file to show, then
+    the index of the image is shown in the title, too.
+
+ -- Dirk Stolle <striezel-dev@web.de>  Sun, 30 Jul 2023 02:23:45 +0200
+
 webp-viewer (0.4.3-1) UNRELEASED; urgency=medium
 
   * The viewer will now emit a warning on the standard output, if the size of

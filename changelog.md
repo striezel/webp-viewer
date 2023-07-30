@@ -1,6 +1,6 @@
 # Version history of webp-viewer
 
-## Version 0.5.0-pre (2023-07-30)
+## Version 0.5.0 (2023-07-30)
 
 The viewer can now handle multiple files. A user can now pass paths to multiple
 image files as arguments, and the viewer will allow to cycle through those files
