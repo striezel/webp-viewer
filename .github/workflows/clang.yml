@@ -10,7 +10,7 @@ jobs:
         version: [11, 12, 13, 14]
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install Debian packages
         run: |
           sudo apt-get update
