@@ -72,6 +72,7 @@ enum class colour_space { RGB, RGBA };
  *
  * \param data   contents read from the WebP file
  * \param dims   dimensions of the image
+ * \param cs     the colour space for decoding, e. g. RGB or RGBA
  * \return Returns the decoded image data in case of success.
  *         Returns an empty optional on failure.
  */
@@ -81,6 +82,7 @@ std::optional<image_data> get_image_data(const buffer& data, const dimensions& d
  *
  * \param data   contents read from the WebP file
  * \param dims   dimensions of the image
+ * \param cs     the colour space for decoding, e. g. RGB or RGBA
  * \return Returns the decoded image data in case of success.
  *         Returns an empty optional on failure.
  */
