@@ -7,7 +7,8 @@
 
 `webp-viewer` is a program that loads and displays a WebP image.
 
-Animations are currently not supported, and probably never will be.
+Animations are currently only partially supported, that is the viewer will only
+load the first frame of an animated WebP image.
 
 ## Building from source
 
