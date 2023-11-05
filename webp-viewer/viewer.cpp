@@ -65,16 +65,18 @@ nonstd::expected<window_data, int> create_window_for_image(const std::string& fi
   std::cout << "Image size: " << dims.value() << std::endl;
 
   const auto anims = has_animations(buffer.value());
-  if (anims.has_value() && anims.value())
+  const bool animated = anims.has_value() && anims.value();
+  if (animated)
   {
-    std::cerr << "Error: " << file << " contains animations, but the viewer "
-              << "does not support loading WebP images with animations.\n";
-    return nonstd::make_unexpected(rcAnimationsNotSupported);
+    std::cerr << "Warning: " << file << " contains animations, but the viewer "
+              << "only supports loading the first frame of WebP images with "
+              << "animations.\n";
   }
 
   const bool has_alpha = has_alpha_channel(buffer.value()).value_or(false);
   const colour_space cs = has_alpha ? colour_space::RGBA : colour_space::RGB;
-  const auto data = get_image_data(buffer.value(), dims.value(), cs);
+  const auto data = animated ? get_first_animation_frame(buffer.value(), dims.value(), cs)
+                             : get_image_data(buffer.value(), dims.value(), cs);
   if (!data.has_value())
   {
     std::cout << "Error: " << file << " could not be decoded as WebP file!\n";

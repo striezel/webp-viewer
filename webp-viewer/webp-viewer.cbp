@@ -42,6 +42,7 @@
 			<Add library="glfw" />
 			<Add library="GL" />
 			<Add library="webp" />
+			<Add library="webpdemux" />
 		</Linker>
 		<Unit filename="../third-party/nonstd/expected.hpp" />
 		<Unit filename="buffer.cpp" />

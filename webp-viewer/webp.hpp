@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the WebP viewer.
-    Copyright (C) 2022  Dirk Stolle
+    Copyright (C) 2022, 2023  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -76,5 +76,14 @@ enum class colour_space { RGB, RGBA };
  *         Returns an empty optional on failure.
  */
 std::optional<image_data> get_image_data(const buffer& data, const dimensions& dims, const colour_space cs);
+
+/** \brief Decodes the first frame of raw data of an animated WebP file into RGB or RGBA data.
+ *
+ * \param data   contents read from the WebP file
+ * \param dims   dimensions of the image
+ * \return Returns the decoded image data in case of success.
+ *         Returns an empty optional on failure.
+ */
+std::optional<image_data> get_first_animation_frame(const buffer& data, const dimensions& dims, const colour_space cs);
 
 #endif // WEBPVIEWER_WEBP_HPP

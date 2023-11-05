@@ -73,6 +73,17 @@ else ()
   message ( FATAL_ERROR "libwebp was not found!" )
 endif ()
 
+# libwebpdemux
+set(webpdemux_DIR "../cmake/" )
+find_package (webpdemux REQUIRED)
+if (WEBPDEMUX_FOUND)
+  include_directories(${WEBPDEMUX_INCLUDE_DIRS})
+  target_link_libraries (webp-viewer ${WEBPDEMUX_LIBRARIES})
+else ()
+  message ( FATAL_ERROR "libwebpdemux was not found!" )
+endif ()
+
+
 # #################### #
 # tests for executable #
 # #################### #

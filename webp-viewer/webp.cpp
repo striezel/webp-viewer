@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the WebP viewer.
-    Copyright (C) 2022  Dirk Stolle
+    Copyright (C) 2022, 2023  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 #include "webp.hpp"
 #include <fstream>
 #include <webp/decode.h>
+#include <webp/demux.h>
 
 std::string webp_version()
 {
@@ -116,6 +117,57 @@ std::optional<image_data> get_image_data(const buffer& data, const dimensions& d
 
   if (WebPDecode(data.data(), data.size(), &config) != VP8StatusCode::VP8_STATUS_OK)
     return std::nullopt;
+
+  return result;
+}
+
+std::optional<image_data> get_first_animation_frame(const buffer& data, const dimensions& dims, const colour_space cs)
+{
+  WebPDecoderConfig config;
+  if (!WebPInitDecoderConfig(&config))
+    return std::nullopt;
+
+  // Flip image vertically, because OpenGL expects it that way.
+  config.options.flip = 1;
+  config.output.colorspace = (cs == colour_space::RGB) ? MODE_RGB : MODE_RGBA;
+  // Set stride to multiple of four bytes, because OpenGL uses that internally
+  // for its textures. If this is not done, then the image is skewed.
+  const auto min_stride = dims.width * ((cs == colour_space::RGB) ? 3 : 4);
+  const auto stride_mode = min_stride % 4;
+  const size_t actual_stride = min_stride + (stride_mode != 0) * (4 - stride_mode);
+  const size_t buffer_size = actual_stride * dims.height;
+  image_data result { new uint8_t[buffer_size], buffer_size, dims };
+
+  config.output.u.RGBA.stride = actual_stride;
+  config.output.u.RGBA.size = buffer_size;
+  config.output.u.RGBA.rgba = result.data;
+  config.output.is_external_memory = 1;
+
+  WebPData api_data;
+  api_data.bytes = data.data();
+  api_data.size = data.size();
+
+  WebPDemuxer* demuxer = WebPDemux(&api_data);
+  if (demuxer == nullptr)
+    return std::nullopt;
+
+  WebPIterator iterator;
+  if (!WebPDemuxGetFrame(demuxer, 1, &iterator))
+  {
+    WebPDemuxReleaseIterator(&iterator);
+    WebPDemuxDelete(demuxer);
+    return std::nullopt;
+  }
+
+  if (WebPDecode(iterator.fragment.bytes, iterator.fragment.size, &config) != VP8StatusCode::VP8_STATUS_OK)
+  {
+    WebPDemuxReleaseIterator(&iterator);
+    WebPDemuxDelete(demuxer);
+    return std::nullopt;
+  }
+
+  WebPDemuxReleaseIterator(&iterator);
+  WebPDemuxDelete(demuxer);
 
   return result;
 }
