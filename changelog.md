@@ -1,6 +1,6 @@
 # Version history of webp-viewer
 
-## Version 0.?.? (2023-11-??)
+## Version 0.6.0 (2023-11-06)
 
 Partial support for animated WebP files is added. The viewer can now display
 the first frame of an animated WebP file.
