@@ -40,3 +40,18 @@ jobs:
           export MSYSTEM=MINGW64
           cd "$GITHUB_WORKSPACE"/build
           ctest -V
+      - name: Build with statically linked standard libraries
+        run: |
+          export MSYSTEM=MINGW64
+          export CXX=g++
+          export CC=gcc
+          cd "$GITHUB_WORKSPACE"
+          mkdir build_static_std_libs
+          cd build_static_std_libs
+          cmake ../ -DENABLE_LTO=ON -DENABLE_STATIC_STANDARD_LIBRARIES=ON
+          cmake --build . -j2
+      - name: Tests of build with statically linked standard libraries
+        run: |
+          export MSYSTEM=MINGW64
+          cd "$GITHUB_WORKSPACE"/build_static_std_libs
+          ctest -V

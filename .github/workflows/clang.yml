@@ -28,3 +28,18 @@ jobs:
         run: |
           cd "$GITHUB_WORKSPACE"/build
           ctest -V
+      - name: Build with Clang ${{ matrix.version }}, statically linking standard libraries
+        run: |
+          export CXX=clang++-${{ matrix.version }}
+          export CC=clang-${{ matrix.version }}
+          cd $GITHUB_WORKSPACE
+          mkdir build_static_std_libs
+          cd build_static_std_libs
+          cmake ../ -DENABLE_LTO=ON -DENABLE_STATIC_STANDARD_LIBRARIES=ON
+          make -j2
+        if: matrix.version == 14
+      - name: Tests of build with statically linked standard libraries
+        run: |
+          cd "$GITHUB_WORKSPACE"/build_static_std_libs
+          ctest -V
+        if: matrix.version == 14
