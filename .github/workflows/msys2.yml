@@ -55,3 +55,18 @@ jobs:
           export MSYSTEM=MINGW64
           cd "$GITHUB_WORKSPACE"/build_static_std_libs
           ctest -V
+      - name: Gather build artifacts
+        run: |
+          export MSYSTEM=MINGW64
+          cd "$GITHUB_WORKSPACE"
+          mkdir artifacts
+          ./ci/copy-dll-dependencies.sh build_static_std_libs/webp-viewer/webp-viewer.exe artifacts/
+          cp readme.md artifacts/
+          cp changelog.md artifacts/
+          cp documentation/third-party.md artifacts/
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: webp-viewer-windows-msys2
+          path: |
+            artifacts/*
