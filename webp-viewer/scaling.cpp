@@ -46,7 +46,6 @@ dimensions get_maximum_window_size()
     return default_window_size;
   }
 
-
   return { width - 5, height - 30 };
 }
 
