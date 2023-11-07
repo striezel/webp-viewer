@@ -32,7 +32,7 @@
 
 void showVersion()
 {
-  std::cout << "webp-viewer, version 0.6.1-pre, 2023-11-07\n"
+  std::cout << "webp-viewer, version 0.6.1, 2023-11-07\n"
             << "\n"
             << "Library versions:\n"
             << "  * libwebp: " << webp_version() << "\n"
