@@ -26,6 +26,7 @@
 #include "glfw.hpp"
 #include "gl_util.hpp"
 #include "return_codes.hpp"
+#include "title.hpp"
 #include "viewer.hpp"
 #include "webp.hpp"
 

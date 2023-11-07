@@ -18,28 +18,28 @@
  -------------------------------------------------------------------------------
 */
 
-#ifndef WEBPVIEWER_VIEWER_HPP
-#define WEBPVIEWER_VIEWER_HPP
+#ifndef WEBPVIEWER_TITLE_HPP
+#define WEBPVIEWER_TITLE_HPP
 
 #include <string>
-#include <GLFW/glfw3.h>
-#include "../third-party/nonstd/expected.hpp"
 
-struct window_data
+/// Aux. data required for generation of a window title after window resize.
+struct title_data
 {
-  GLFWwindow* window; /**< pointer to the window */
-  GLuint texture;     /**< associated OpenGL texture name */
+  std::string file;          /**< name of the image file */
+  int image_width;           /**< actual, original width of the image */
+  std::size_t current_index; /**< current zero-based index of the file */
+  std::size_t total_files;   /**< total number of files */
 };
 
-/** \brief Creates a viewer window showing the given WebP image.
+/** \brief Generates a title for the windows showing the image.
  *
- * \param file     path to the WebP image file
+ * \param file   file name of the image
+ * \param scaling_percentage  percentage indicating the scaling factor (i. e. 100 for no scaling, 50 for half the original size)
  * \param current  zero-based index of the current image file
  * \param total    total number of images available
- * \return Returns windows data containing a non-null pointer to a window and a
- *         non-zero OpenGL texture name in case of success.
- *         Returns an exit code, if an error occurred.
+ * \return Returns a title suitable for the window.
  */
-nonstd::expected<window_data, int> create_window_for_image(const std::string& file, const std::size_t current, const std::size_t total);
+std::string generate_window_title(const std::string& file, const unsigned int scaling_percentage, const std::size_t current, const std::size_t total);
 
-#endif // WEBPVIEWER_VIEWER_HPP
+#endif // WEBPVIEWER_TITLE_HPP

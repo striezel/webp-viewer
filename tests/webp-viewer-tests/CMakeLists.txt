@@ -9,12 +9,14 @@ set(webp-viewer-tests_sources
     ../../webp-viewer/glfw.cpp
     ../../webp-viewer/image_data.cpp
     ../../webp-viewer/scaling.cpp
+    ../../webp-viewer/title.cpp
     buffer.cpp
     detect_ci.cpp
     dimensions.cpp
     glfw.cpp
     image_data.cpp
     scaling.cpp
+    title.cpp
     main.cpp)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -31,6 +33,22 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(webp-viewer-tests ${webp-viewer-tests_sources})
+
+# GNU GCC before 9.1.0 needs to link to libstdc++fs explicitly.
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9.1.0")
+  target_link_libraries(webp-viewer-tests stdc++fs)
+endif ()
+
+# Clang before 9.0 needs to link to libc++fs explicitly.
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9.0")
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "8.0")
+    # If we are on Clang 7.x, then the filesystem library from GCC is better.
+    target_link_libraries(webp-viewer-tests stdc++fs)
+  else ()
+    # Use Clang's C++ filesystem library, it is recent enough.
+    target_link_libraries(webp-viewer-tests c++fs)
+  endif ()
+endif ()
 
 # GLFW
 find_package (glfw3 REQUIRED)

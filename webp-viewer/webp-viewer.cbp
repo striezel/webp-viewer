@@ -58,6 +58,8 @@
 		<Unit filename="return_codes.hpp" />
 		<Unit filename="scaling.cpp" />
 		<Unit filename="scaling.hpp" />
+		<Unit filename="title.cpp" />
+		<Unit filename="title.hpp" />
 		<Unit filename="viewer.cpp" />
 		<Unit filename="viewer.hpp" />
 		<Unit filename="webp.cpp" />

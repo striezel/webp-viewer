@@ -40,6 +40,8 @@
 		<Unit filename="../../webp-viewer/image_data.hpp" />
 		<Unit filename="../../webp-viewer/scaling.cpp" />
 		<Unit filename="../../webp-viewer/scaling.hpp" />
+		<Unit filename="../../webp-viewer/title.cpp" />
+		<Unit filename="../../webp-viewer/title.hpp" />
 		<Unit filename="buffer.cpp" />
 		<Unit filename="detect_ci.cpp" />
 		<Unit filename="detect_ci.hpp" />
@@ -49,6 +51,7 @@
 		<Unit filename="locate_catch.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="scaling.cpp" />
+		<Unit filename="title.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
