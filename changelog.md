@@ -1,5 +1,9 @@
 # Version history of webp-viewer
 
+## Version 0.6.1-pre (2023-11-??)
+
+The displayed image is now resized when the user resizes the window.
+
 ## Version 0.6.0 (2023-11-06)
 
 Partial support for animated WebP files is added. The viewer can now display

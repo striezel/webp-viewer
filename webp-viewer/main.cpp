@@ -18,6 +18,8 @@
  -------------------------------------------------------------------------------
 */
 
+#include <algorithm>
+#include <cmath>
 #include <filesystem>
 #include <iostream>
 #include <string>
@@ -29,7 +31,7 @@
 
 void showVersion()
 {
-  std::cout << "webp-viewer, version 0.6.0, 2023-11-06\n"
+  std::cout << "webp-viewer, version 0.6.1-pre, 2023-11-07\n"
             << "\n"
             << "Library versions:\n"
             << "  * libwebp: " << webp_version() << "\n"
@@ -53,6 +55,7 @@ std::vector<std::string> files;
 decltype(files)::size_type file_index = 0;
 decltype(files)::size_type requested_file_index = 0;
 window_data current_window { nullptr, 0 };
+bool window_was_resized = false;
 
 void move_to_next_image()
 {
@@ -88,10 +91,38 @@ void key_callback(GLFWwindow* window, int key, [[maybe_unused]] int scancode,
      move_to_previous_image();
 }
 
+void resize_callback(GLFWwindow* window, int new_width,
+                     [[maybe_unused]] int new_height)
+{
+  window_was_resized = true;
+  void* user_ptr = glfwGetWindowUserPointer(window);
+  if (user_ptr != nullptr)
+  {
+    const title_data* ptr = static_cast<title_data*>(user_ptr);
+    const unsigned int percentage = std::max(1u, static_cast<unsigned int>(std::floor(static_cast<double>(new_width) / ptr->image_width * 100)));
+    const auto title = generate_window_title(ptr->file, percentage,
+                                             ptr->current_index, ptr->total_files);
+    glfwSetWindowTitle(window, title.c_str());
+  }
+}
+
+void close_callback(GLFWwindow* window)
+{
+  void* v_ptr = glfwGetWindowUserPointer(window);
+  if (v_ptr != nullptr)
+  {
+    title_data* ptr = static_cast<title_data*>(v_ptr);
+    delete ptr;
+    glfwSetWindowUserPointer(window, nullptr);
+  }
+}
+
 nonstd::expected<window_data, int> update_image()
 {
-  // Remove old key callback.
+  // Remove old callbacks.
   glfwSetKeyCallback(current_window.window, nullptr);
+  glfwSetWindowSizeCallback(current_window.window, nullptr);
+  close_callback(current_window.window);
   // Destroy old window.
   glfwDestroyWindow(current_window.window);
   // remove old texture name
@@ -101,8 +132,10 @@ nonstd::expected<window_data, int> update_image()
   {
     return nonstd::make_unexpected(new_window.error());
   }
-  // Set key callback on new window.
+  // Set callbacks on new window.
   glfwSetKeyCallback(new_window.value().window, key_callback);
+  glfwSetWindowSizeCallback(new_window.value().window, resize_callback);
+  glfwSetWindowCloseCallback(new_window.value().window, close_callback);
   // Update indices to avoid useless window re-creation.
   file_index = requested_file_index;
   return new_window.value();
@@ -170,6 +203,8 @@ int main(int argc, char** argv)
   show_open_gl_info();
 
   glfwSetKeyCallback(current_window.window, key_callback);
+  glfwSetWindowSizeCallback(current_window.window, resize_callback);
+  glfwSetWindowCloseCallback(current_window.window, close_callback);
 
   std::cout << "Hint: Press ESC or Q to close the viewer window." << std::endl;
   if (files.size() > 1)
@@ -181,6 +216,15 @@ int main(int argc, char** argv)
 
   while (!glfwWindowShouldClose(current_window.window))
   {
+    if (window_was_resized)
+    {
+      int width = 1;
+      int height = 1;
+      glfwGetWindowSize(current_window.window, &width, &height);
+      glLoadIdentity();
+      glViewport(0, 0, width, height);
+      window_was_resized = false;
+    }
     glClear(GL_COLOR_BUFFER_BIT);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -214,6 +258,7 @@ int main(int argc, char** argv)
     }
   }
   glDeleteTextures(1, &current_window.texture);
+  close_callback(current_window.window);
   glfwTerminate();
   return 0;
 }

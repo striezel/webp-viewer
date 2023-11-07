@@ -27,6 +27,11 @@
 
 std::string generate_window_title(const std::string& file, const scaling_data& scaling, const std::size_t current, const std::size_t total)
 {
+  return generate_window_title(file, scaling.percentage, current, total);
+}
+
+std::string generate_window_title(const std::string& file, const unsigned int scaling_percentage, const std::size_t current, const std::size_t total)
+{
   std::string title;
   try
   {
@@ -36,9 +41,9 @@ std::string generate_window_title(const std::string& file, const scaling_data& s
   {
     title = "webp viewer";
   }
-  if (scaling.percentage < 100)
+  if (scaling_percentage != 100)
   {
-    title += " (scaled: " + std::to_string(scaling.percentage) + " %)";
+    title += " (scaled: " + std::to_string(scaling_percentage) + " %)";
   }
   if (total > 1)
   {
@@ -94,11 +99,16 @@ nonstd::expected<window_data, int> create_window_for_image(const std::string& fi
   }
 
   glfwMakeContextCurrent(window);
-  if (scaling.percentage == 100)
-  {
-    glfwSetWindowSizeLimits(window, scaling.dims.width, scaling.dims.height,
-                            scaling.dims.width, scaling.dims.height);
-  }
+  glfwSetWindowAspectRatio(window, scaling.dims.width, scaling.dims.height);
+  // Note: Find a better solution to avoid "naked" new that does not involve
+  // global or static data.
+  title_data * ptr = new title_data;
+  ptr->file = file;
+  ptr->image_width = dims.value().width;
+  ptr->current_index = current;
+  ptr->total_files = total;
+  glfwSetWindowUserPointer(window, static_cast<void*>(ptr));
+  ptr = nullptr;
 
   GLuint textureName = 0;
   glGenTextures(1, &textureName);
