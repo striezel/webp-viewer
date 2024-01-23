@@ -65,7 +65,7 @@ jobs:
           cp changelog.md artifacts/
           cp documentation/third-party.md artifacts/
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: webp-viewer-windows-msys2
           path: |
