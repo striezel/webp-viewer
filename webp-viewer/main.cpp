@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the WebP viewer.
-    Copyright (C) 2022, 2023  Dirk Stolle
+    Copyright (C) 2022, 2023, 2024  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ void showHelp()
             << "                    Can be repeated multiple times to view several images.\n";
 }
 
-std::vector<std::string> files;
+std::vector<std::filesystem::path> files;
 decltype(files)::size_type file_index = 0;
 decltype(files)::size_type requested_file_index = 0;
 window_data current_window { nullptr, 0 };

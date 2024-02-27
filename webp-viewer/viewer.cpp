@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the WebP viewer.
-    Copyright (C) 2022, 2023  Dirk Stolle
+    Copyright (C) 2022, 2023, 2024  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,19 +19,18 @@
 */
 
 #include "viewer.hpp"
-#include <filesystem>
 #include <iostream>
 #include "return_codes.hpp"
 #include "scaling.hpp"
 #include "title.hpp"
 #include "webp.hpp"
 
-std::string generate_window_title(const std::string& file, const scaling_data& scaling, const std::size_t current, const std::size_t total)
+std::string generate_window_title(const std::filesystem::path& file, const scaling_data& scaling, const std::size_t current, const std::size_t total)
 {
   return generate_window_title(file, scaling.percentage, current, total);
 }
 
-nonstd::expected<window_data, int> create_window_for_image(const std::string& file, const std::size_t current, const std::size_t total)
+nonstd::expected<window_data, int> create_window_for_image(const std::filesystem::path& file, const std::size_t current, const std::size_t total)
 {
   const auto buffer = read_file(file);
   if (!buffer.has_value())

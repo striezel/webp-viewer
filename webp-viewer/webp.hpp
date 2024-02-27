@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the WebP viewer.
-    Copyright (C) 2022, 2023  Dirk Stolle
+    Copyright (C) 2022, 2023, 2024  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 #ifndef WEBPVIEWER_WEBP_HPP
 #define WEBPVIEWER_WEBP_HPP
 
+#include <filesystem>
 #include <optional>
 #include <string>
 #include "../third-party/nonstd/expected.hpp"
@@ -63,7 +64,7 @@ std::optional<bool> has_alpha_channel(const buffer& data);
  * \return Returns a buffer containing a data pointer and size of the buffer in
  *         case of success. Returns an empty optional on failure.
  */
-nonstd::expected<buffer, std::string> read_file(const std::string& path);
+nonstd::expected<buffer, std::string> read_file(const std::filesystem::path& path);
 
 /// possible colour spaces to use for WebP decoding
 enum class colour_space { RGB, RGBA };

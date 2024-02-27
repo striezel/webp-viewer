@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the WebP viewer.
-    Copyright (C) 2022, 2023  Dirk Stolle
+    Copyright (C) 2022, 2023, 2024  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 #ifndef WEBPVIEWER_VIEWER_HPP
 #define WEBPVIEWER_VIEWER_HPP
 
+#include <filesystem>
 #include <string>
 #include <GLFW/glfw3.h>
 #include "../third-party/nonstd/expected.hpp"
@@ -40,6 +41,6 @@ struct window_data
  *         non-zero OpenGL texture name in case of success.
  *         Returns an exit code, if an error occurred.
  */
-nonstd::expected<window_data, int> create_window_for_image(const std::string& file, const std::size_t current, const std::size_t total);
+nonstd::expected<window_data, int> create_window_for_image(const std::filesystem::path& file, const std::size_t current, const std::size_t total);
 
 #endif // WEBPVIEWER_VIEWER_HPP

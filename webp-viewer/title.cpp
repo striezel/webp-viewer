@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the WebP viewer.
-    Copyright (C) 2022, 2023  Dirk Stolle
+    Copyright (C) 2022, 2023, 2024  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,14 +19,13 @@
 */
 
 #include "title.hpp"
-#include <filesystem>
 
-std::string generate_window_title(const std::string& file, const unsigned int scaling_percentage, const std::size_t current, const std::size_t total)
+std::string generate_window_title(const std::filesystem::path& file, const unsigned int scaling_percentage, const std::size_t current, const std::size_t total)
 {
   std::string title;
   try
   {
-    title = std::filesystem::path{file}.filename().string();
+    title = file.filename().string();
   }
   catch(...)
   {

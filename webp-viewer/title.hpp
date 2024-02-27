@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the WebP viewer.
-    Copyright (C) 2022, 2023  Dirk Stolle
+    Copyright (C) 2022, 2023, 2024  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,15 +21,16 @@
 #ifndef WEBPVIEWER_TITLE_HPP
 #define WEBPVIEWER_TITLE_HPP
 
+#include <filesystem>
 #include <string>
 
 /// Aux. data required for generation of a window title after window resize.
 struct title_data
 {
-  std::string file;          /**< name of the image file */
-  int image_width;           /**< actual, original width of the image */
-  std::size_t current_index; /**< current zero-based index of the file */
-  std::size_t total_files;   /**< total number of files */
+  std::filesystem::path file; /**< name of the image file */
+  int image_width;            /**< actual, original width of the image */
+  std::size_t current_index;  /**< current zero-based index of the file */
+  std::size_t total_files;    /**< total number of files */
 };
 
 /** \brief Generates a title for the windows showing the image.
@@ -40,6 +41,6 @@ struct title_data
  * \param total    total number of images available
  * \return Returns a title suitable for the window.
  */
-std::string generate_window_title(const std::string& file, const unsigned int scaling_percentage, const std::size_t current, const std::size_t total);
+std::string generate_window_title(const std::filesystem::path& file, const unsigned int scaling_percentage, const std::size_t current, const std::size_t total);
 
 #endif // WEBPVIEWER_TITLE_HPP
