@@ -1,6 +1,6 @@
 # Version history of webp-viewer
 
-## Version 0.?.? (2024-02-??)
+## Version 0.6.2 (2024-02-27)
 
 A problem with handling of special characters in path names on Windows is fixed.
 
