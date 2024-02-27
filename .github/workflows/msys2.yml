@@ -27,6 +27,8 @@ jobs:
             mingw-w64-x86_64-make
             mingw-w64-x86_64-ninja
             mingw-w64-x86_64-pkg-config
+      - name: Force-fetch Git tags
+        run: git fetch --force --tags
       - name: Build
         run: |
           export MSYSTEM=MINGW64
