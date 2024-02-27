@@ -45,7 +45,9 @@ nonstd::expected<window_data, int> create_window_for_image(const std::filesystem
     std::cerr << "Error: " << file << " is not a WebP file!\n";
     return nonstd::make_unexpected(rcInputOutputError);
   }
+  #ifdef SHOW_WEBP_SIZE
   std::cout << "Image size: " << dims.value() << std::endl;
+  #endif // SHOW_WEBP_SIZE
 
   const auto anims = has_animations(buffer.value());
   const bool animated = anims.has_value() && anims.value();
