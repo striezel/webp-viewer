@@ -15,7 +15,8 @@ load the first frame of an animated WebP image.
 ### Prerequisites
 
 To build webp-viewer from source you need a C++ compiler with support for C++17,
-CMake 3.8 or later, OpenGL, the GLFW library and the libwebp library.
+CMake 3.8 or later, OpenGL, the GLFW library (version 3.3 or later) and the
+libwebp library.
 pkg-config is required to make it easier to find compiler options for the
 installed libraries. Additionally, the program uses Catch (C++ Automated Test
 Cases in Headers) to perform some tests.

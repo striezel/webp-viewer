@@ -57,7 +57,7 @@ else ()
 endif ()
 
 # GLFW for window handling
-find_package (glfw3 REQUIRED)
+find_package (glfw3 3.3 REQUIRED)
 if (glfw3_FOUND)
   target_link_libraries (webp-viewer glfw)
 else ()
