@@ -31,8 +31,6 @@ jobs:
           export CC=gcc
           cd "$GITHUB_WORKSPACE"
           ./ci/02-create-package.sh
-          pwd
-          ls -lah
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
