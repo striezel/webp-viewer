@@ -11,6 +11,8 @@ jobs:
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: msys2/setup-msys2@v2
         with:
           msystem: mingw64
@@ -64,9 +66,13 @@ jobs:
           cp readme.md artifacts/
           cp changelog.md artifacts/
           cp documentation/third-party.md artifacts/
+          VERSION=$(git describe --always)
+          mv artifacts webp-viewer_${VERSION}
+          '/c/Program Files/7-Zip/7z.exe' a -r webp-viewer_${VERSION}.zip webp-viewer_${VERSION}
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: webp-viewer-windows-msys2
+          if-no-files-found: error
           path: |
-            artifacts/*
+            webp-viewer*.zip
