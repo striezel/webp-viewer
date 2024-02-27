@@ -20,6 +20,9 @@
 
 #include <algorithm>
 #include <cmath>
+#if defined(_WIN32) || defined(_WIN64)
+#include <cstdlib>
+#endif
 #include <filesystem>
 #include <iostream>
 #include <string>
@@ -167,13 +170,35 @@ int main(int argc, char** argv)
       else
       {
         // Parameter might be a file.
-        std::error_code error;
-        if (!std::filesystem::exists(param, error) || error)
+        std::filesystem::path file;
+        try
         {
-          std::cerr << "Error: File " << param << " does not exist!\n";
+          #if !defined(_WIN32) && !defined(_WIN64)
+          file = param;
+          #else
+          std::wstring utf16(param.size(), L'\0');
+          const auto num_chars = std::mbstowcs(&utf16[0], param.c_str(), param.size());
+          if (num_chars == static_cast<std::size_t>(-1))
+          {
+            std::cerr << "Error: " << param << " is not a valid parameter!\n";
+            return rcInvalidParameter;
+          }
+          file = utf16;
+          #endif
+        }
+        catch (...)
+        {
+          std::cerr << "Error: " << param << " is neither a valid parameter "
+                    << "nor an existing WebP file!\n";
           return rcInvalidParameter;
         }
-        files.push_back(param);
+        std::error_code error;
+        if (!std::filesystem::exists(file, error) || error)
+        {
+          std::cerr << "Error: File " << file << " does not exist!\n";
+          return rcInvalidParameter;
+        }
+        files.push_back(file);
       }
     }
   } // if arguments are there

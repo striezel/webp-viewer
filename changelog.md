@@ -1,5 +1,9 @@
 # Version history of webp-viewer
 
+## Version 0.?.? (2024-02-??)
+
+A problem with handling of special characters in path names on Windows is fixed.
+
 ## Version 0.6.1 (2023-11-07)
 
 The displayed image is now resized when the user resizes the window.
