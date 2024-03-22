@@ -44,7 +44,8 @@ nonstd::expected<window_data, int> create_window_for_image(const std::filesystem
   {
     std::cerr << "Error: " << file << " is not a WebP file!\n"
               << "The viewer only supports images in WebP format. Other image "
-              << "formats like e.g. JPEG or PNG are not supported.\n";
+              << "formats like e.g. JPEG or PNG are not supported and cannot "
+              << "be displayed by the viewer.\n";
     return nonstd::make_unexpected(rcInputOutputError);
   }
   #ifdef SHOW_WEBP_SIZE

@@ -46,13 +46,13 @@ void showHelp()
 {
   std::cout << "webp-viewer [OPTIONS] [FILE]\n"
             << "\n"
-            << "Loads and shows a WebP image.\n"
+            << "Loads and shows WebP images.\n"
             << "\n"
             << "options:\n"
             << "  -? | --help     - Shows this help message.\n"
             << "  -v | --version  - Shows version information.\n"
             << "  --shortcuts     - Shows available keyboard shortcuts.\n"
-            << "  FILE            - Sets the file name of image to show.\n"
+            << "  FILE            - Sets the file name of the image to show.\n"
             << "                    Can be repeated multiple times to view several images.\n";
 }
 

@@ -68,13 +68,13 @@ For information how to build webp-viewer on Windows, see the
 ```
 webp-viewer [OPTIONS] [FILE]
 
-Loads and shows a WebP image.
+Loads and shows WebP images.
 
 options:
   -? | --help     - Shows this help message.
   -v | --version  - Shows version information.
   --shortcuts     - Shows available keyboard shortcuts.
-  FILE            - Sets the file name of image to show.
+  FILE            - Sets the file name of the image to show.
                     Can be repeated multiple times to view several images.
 ```
 
