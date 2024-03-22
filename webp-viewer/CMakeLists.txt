@@ -65,8 +65,8 @@ else ()
 endif ()
 
 # libwebp
-set(webp_DIR "../cmake/" )
-find_package (webp REQUIRED)
+find_package(PkgConfig)
+pkg_search_module (WEBP REQUIRED libwebp)
 if (WEBP_FOUND)
   include_directories(${WEBP_INCLUDE_DIRS})
   target_link_libraries (webp-viewer ${WEBP_LIBRARIES})
@@ -75,8 +75,7 @@ else ()
 endif ()
 
 # libwebpdemux
-set(webpdemux_DIR "../cmake/" )
-find_package (webpdemux REQUIRED)
+pkg_search_module (WEBPDEMUX REQUIRED libwebpdemux)
 if (WEBPDEMUX_FOUND)
   include_directories(${WEBPDEMUX_INCLUDE_DIRS})
   target_link_libraries (webp-viewer ${WEBPDEMUX_LIBRARIES})
