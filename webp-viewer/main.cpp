@@ -51,8 +51,21 @@ void showHelp()
             << "options:\n"
             << "  -? | --help     - Shows this help message.\n"
             << "  -v | --version  - Shows version information.\n"
+            << "  --shortcuts     - Shows available keyboard shortcuts.\n"
             << "  FILE            - Sets the file name of image to show.\n"
             << "                    Can be repeated multiple times to view several images.\n";
+}
+
+void showKeys()
+{
+  std::cout << "webp-viewer supports the following keyboard shortcuts:\n"
+            << "\n"
+            << "ESC or Q                - Closes the viewer.\n"
+            << "Left arrow key or A     - Shows the previous image.\n"
+            << "Right arrow key or D    - Shows the next image.\n"
+            << '\n'
+            << "The previous and next image shortcuts only work when more than"
+            << " one image was given as argument.\n";
 }
 
 std::vector<std::filesystem::path> files;
@@ -165,6 +178,11 @@ int main(int argc, char* argv[])
       else if ((param == "-?") || (param == "/?") || (param == "--help"))
       {
         showHelp();
+        return 0;
+      }
+      else if ((param == "--keys") || (param == "--shortcuts"))
+      {
+        showKeys();
         return 0;
       }
       else

@@ -107,3 +107,7 @@ endif ()
 # parameter to show version number
 add_test(NAME webp-viewer_version
          COMMAND $<TARGET_FILE:webp-viewer> --version)
+
+# parameter to show keyboard shortcuts
+add_test(NAME webp-viewer_shortcuts
+         COMMAND $<TARGET_FILE:webp-viewer> --shortcuts)

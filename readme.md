@@ -73,6 +73,7 @@ Loads and shows a WebP image.
 options:
   -? | --help     - Shows this help message.
   -v | --version  - Shows version information.
+  --shortcuts     - Shows available keyboard shortcuts.
   FILE            - Sets the file name of image to show.
                     Can be repeated multiple times to view several images.
 ```
@@ -81,11 +82,11 @@ options:
 
 The webp-viewer currently supports the following shortcuts:
 
-| Key                               | Effect               |
-|-----------------------------------|----------------------|
-| <kbd>ESC</kbd> / <kbd>Q</kbd>     | Closes the viewer.   |
-| <kbd>A</kbd> / <kbd>&#8592;</kbd> | Show previous image. |
-| <kbd>D</kbd> / <kbd>&#8594;</kbd> | Show next image.     |
+| Key                               | Effect                    |
+|-----------------------------------|---------------------------|
+| <kbd>ESC</kbd> / <kbd>Q</kbd>     | Closes the viewer.        |
+| <kbd>A</kbd> / <kbd>&#8592;</kbd> | Shows the previous image. |
+| <kbd>D</kbd> / <kbd>&#8594;</kbd> | Shows the next image.     |
 
 The previous and next image shortcuts only work when more than one image was
 given as argument. (They would be useless for cases with only one image.)
