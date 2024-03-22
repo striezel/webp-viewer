@@ -42,7 +42,9 @@ nonstd::expected<window_data, int> create_window_for_image(const std::filesystem
   const auto dims = get_dimensions(buffer.value());
   if (!dims.has_value())
   {
-    std::cerr << "Error: " << file << " is not a WebP file!\n";
+    std::cerr << "Error: " << file << " is not a WebP file!\n"
+              << "The viewer only supports images in WebP format. Other image "
+              << "formats like e.g. JPEG or PNG are not supported.\n";
     return nonstd::make_unexpected(rcInputOutputError);
   }
   #ifdef SHOW_WEBP_SIZE
@@ -64,7 +66,7 @@ nonstd::expected<window_data, int> create_window_for_image(const std::filesystem
                              : get_image_data(buffer.value(), dims.value(), cs);
   if (!data.has_value())
   {
-    std::cout << "Error: " << file << " could not be decoded as WebP file!\n";
+    std::cerr << "Error: " << file << " could not be decoded as WebP file!\n";
     return nonstd::make_unexpected(rcInputOutputError);
   }
 

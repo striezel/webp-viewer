@@ -145,7 +145,7 @@ nonstd::expected<window_data, int> update_image()
   return new_window.value();
 }
 
-int main(int argc, char** argv)
+int main(int argc, char* argv[])
 {
   if ((argc > 1) && (argv != nullptr))
   {
@@ -206,6 +206,12 @@ int main(int argc, char** argv)
   if (files.empty())
   {
     std::cout << "Error: No file has been specified.\n";
+    const auto example{std::filesystem::path("path") / "to" / "image.webp"};
+    const std::string viewer = (argc > 0) && (argv[0] != nullptr) && (argv[0][0] != '\0')
+                             ? argv[0] : "webp-viewer";
+    std::cout << "Hint: Files to view can be specified as parameter, e.g.\n\n"
+              << "    " << viewer << " " << example << "\n\nwould show the "
+              << "WebP image " << example << ", if it existed.\n";
     return rcInvalidParameter;
   }
 
@@ -214,7 +220,7 @@ int main(int argc, char** argv)
 
   if (!glfwInit())
   {
-    std::cerr << "Initialization of GLFW failed!\n";
+    std::cerr << "Error: Initialization of GLFW failed!\n";
     return rcGlfwError;
   }
 
