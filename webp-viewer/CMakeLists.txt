@@ -1,4 +1,3 @@
-# We might support earlier versions, too, but try to use a more recent one.
 cmake_minimum_required (VERSION 3.8)
 
 project(webp-viewer)
@@ -57,15 +56,15 @@ else ()
 endif ()
 
 # GLFW for window handling
-find_package (glfw3 3.3 REQUIRED)
+find_package(PkgConfig)
+pkg_search_module (glfw3 REQUIRED glfw3>=3.3)
 if (glfw3_FOUND)
-  target_link_libraries (webp-viewer glfw)
+  target_link_libraries (webp-viewer ${glfw3_LIBRARIES})
 else ()
-  message ( FATAL_ERROR "GLFW was not found!" )
+  message ( FATAL_ERROR "GLFW 3.3 or later was not found!" )
 endif ()
 
 # libwebp
-find_package(PkgConfig)
 pkg_search_module (WEBP REQUIRED libwebp)
 if (WEBP_FOUND)
   include_directories(${WEBP_INCLUDE_DIRS})
