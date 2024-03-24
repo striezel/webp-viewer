@@ -65,6 +65,7 @@ jobs:
           cd "$GITHUB_WORKSPACE"
           mkdir artifacts
           ./ci/copy-dll-dependencies.sh build_static_std_libs/webp-viewer/webp-viewer.exe artifacts/
+          cp LICENSE artifacts/
           cp readme.md artifacts/
           cp changelog.md artifacts/
           cp documentation/third-party.md artifacts/
