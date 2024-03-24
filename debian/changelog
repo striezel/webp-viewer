@@ -1,3 +1,10 @@
+webp-viewer (0.6.3-1) UNRELEASED; urgency=medium
+
+  * A new command-line parameter is added to show the available keyboard
+    shortcuts.
+
+ -- Dirk Stolle <striezel-dev@web.de>  Sun, 24 Mar 2024 16:03:20 +0100
+
 webp-viewer (0.6.2-1) UNRELEASED; urgency=medium
 
   * A problem with handling of special characters in path names on Windows is

@@ -1,6 +1,6 @@
 # Version history of webp-viewer
 
-## Version 0.?.? (2024-03-??)
+## Version 0.6.3 (2024-03-24)
 
 A new command-line parameter is added to show the available keyboard shortcuts.
 
