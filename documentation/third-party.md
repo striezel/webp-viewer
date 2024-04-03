@@ -1,6 +1,6 @@
 # Third-party license notices for webp-viewer
 
-`webp-viewer` uses the following third-party libraries:
+`webp-viewer` may use the following third-party libraries:
 
 ## GLFW
 
