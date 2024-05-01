@@ -1,5 +1,5 @@
 # This Dockerfile builds the image used during the fedora build job on GitLab.
-FROM fedora:39
+FROM fedora:40
 LABEL maintainer="Dirk Stolle <striezel-dev@web.de>"
 # Always update any existing packages first.
 RUN yum update -y
