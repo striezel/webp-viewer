@@ -1,5 +1,9 @@
 # Version history of webp-viewer
 
+## Version 0.?.? (2024-06-??)
+
+Adjustments are made to provide builds for Ubuntu 24.04 LTS, too.
+
 ## Version 0.6.3 (2024-03-24)
 
 A new command-line parameter is added to show the available keyboard shortcuts.
