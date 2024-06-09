@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-20.04, ubuntu-22.04 ]
+        os: [ ubuntu-20.04, ubuntu-22.04, ubuntu-24.04 ]
     runs-on: ${{ matrix.os }}
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
@@ -24,7 +24,15 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends build-essential bzip2 ca-certificates debhelper devscripts fakeroot g++ git lsb-release tar wget
-          sudo apt-get install -y --no-install-recommends catch cmake g++ libgl-dev libglfw3-dev libwebp-dev pkg-config
+          sudo apt-get install -y --no-install-recommends cmake g++ libgl-dev libglfw3-dev libwebp-dev pkg-config
+      - name: Install Catch v1
+        run: |
+          sudo apt-get install -y --no-install-recommends catch
+        if: matrix.os != 'ubuntu-24.04'
+      - name: Install Catch v2 / v3
+        run: |
+          sudo apt-get install -y --no-install-recommends catch2
+        if: matrix.os == 'ubuntu-24.04'
       - name: Build package
         run: |
           export CXX=g++

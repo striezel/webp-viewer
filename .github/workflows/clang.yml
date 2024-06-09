@@ -4,10 +4,23 @@ on: push
 
 jobs:
   clang:
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        version: [11, 12, 13, 14]
+        include:
+          - version: 11
+            os: ubuntu-22.04
+          - version: 12
+            os: ubuntu-22.04
+          - version: 13
+            os: ubuntu-22.04
+          - version: 14
+            os: ubuntu-22.04
+          - version: 16
+            os: ubuntu-24.04
+          - version: 18
+            os: ubuntu-24.04
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
       - uses: actions/checkout@v4
