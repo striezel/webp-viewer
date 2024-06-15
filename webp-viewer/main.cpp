@@ -39,7 +39,12 @@ void showVersion()
             << "\n"
             << "Library versions:\n"
             << "  * libwebp: " << webp_version() << "\n"
-            << "  * glfw:    " << glfw_version() << std::endl;
+            << "  * glfw:    " << glfw_version() << "\n\n"
+            << "Copyright (C) 2022, 2023, 2024  Dirk Stolle\n"
+            << "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+            << "This is free software: you are free to change and redistribute it under the\n"
+            << "terms of the GNU General Public License version 3 or any later version.\n"
+            << "There is NO WARRANTY, to the extent permitted by law.\n";
 }
 
 void showHelp()
