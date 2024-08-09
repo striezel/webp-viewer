@@ -50,9 +50,9 @@ jobs:
           cd build_static_std_libs
           cmake ../ -DENABLE_LTO=ON -DENABLE_STATIC_STANDARD_LIBRARIES=ON
           make -j2
-        if: matrix.version == 14
+        if: matrix.version == 14 || matrix.version == 18
       - name: Tests of build with statically linked standard libraries
         run: |
           cd "$GITHUB_WORKSPACE"/build_static_std_libs
           ctest -V
-        if: matrix.version == 14
+        if: matrix.version == 14 || matrix.version == 18
