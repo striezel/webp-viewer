@@ -15,7 +15,7 @@ jobs:
           pack-name: 'debian_11'
         - image: 'debian:12'
           pack-name: 'debian_12'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     container: ${{ matrix.image }}
     steps:
       - name: Install Debian packages
