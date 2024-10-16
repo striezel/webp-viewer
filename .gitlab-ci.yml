@@ -1,8 +1,8 @@
 docker_image_debian:
-  image: docker:20
+  image: docker:27
   stage: build
   services:
-    - docker:20-dind
+    - docker:27-dind
   script:
     - cd ci/
     - docker build -t $CI_REGISTRY/striezel/webp-viewer/debian:12 . -f Dockerfile_debian
@@ -33,10 +33,10 @@ debian:
     - ctest -V
 
 docker_image_fedora:
-  image: docker:20
+  image: docker:27
   stage: build
   services:
-    - docker:20-dind
+    - docker:27-dind
   script:
     - cd ci/
     - docker build -t $CI_REGISTRY/striezel/webp-viewer/fedora:40 . -f Dockerfile_fedora
