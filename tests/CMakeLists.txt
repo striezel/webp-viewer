@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required (VERSION 3.8...3.31)
 
 include (CheckIncludeFileCXX)
 check_include_file_cxx (catch2/catch_test_macros.hpp HAS_CATCH_V3_HEADER)
