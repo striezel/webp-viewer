@@ -1,6 +1,6 @@
 # Version history of webp-viewer
 
-## Version 0.?.? (2024-06-??)
+## Version 0.?.? (2025-01-??)
 
 Adjustments are made to provide builds for Ubuntu 24.04 LTS, too.
 

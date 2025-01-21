@@ -97,7 +97,7 @@ A changelog is provided as [separate file](./changelog.md).
 
 ## Copyright and Licensing
 
-Copyright 2022, 2023, 2024  Dirk Stolle
+Copyright 2022, 2023, 2024, 2025  Dirk Stolle
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
