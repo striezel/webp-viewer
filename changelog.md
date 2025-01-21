@@ -4,6 +4,9 @@
 
 Adjustments are made to provide builds for Ubuntu 24.04 LTS, too.
 
+A potentially wrong string size for file names under Windows OS is fixed.
+(Linux builds are not affected by this.)
+
 ## Version 0.6.3 (2024-03-24)
 
 A new command-line parameter is added to show the available keyboard shortcuts.
