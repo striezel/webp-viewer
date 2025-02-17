@@ -26,6 +26,7 @@ jobs:
     steps:
       - name: Install Debian packages
         run: |
+          export DEBIAN_FRONTEND=noninteractive
           apt-get update && apt-get upgrade -y
           apt-get install -y --no-install-recommends build-essential bzip2 ca-certificates debhelper devscripts fakeroot g++ git lsb-release tar wget
           apt-get install -y --no-install-recommends catch cmake g++ libgl-dev libglfw3-dev libwebp-dev pkg-config
