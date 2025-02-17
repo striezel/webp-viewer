@@ -15,6 +15,12 @@ jobs:
           pack-name: 'debian_11'
         - image: 'debian:12'
           pack-name: 'debian_12'
+        - image: 'ubuntu:20.04'
+          pack-name: 'ubuntu_20_04'
+        - image: 'ubuntu:22.04'
+          pack-name: 'ubuntu_22_04'
+        - image: 'ubuntu:24.04'
+          pack-name: 'ubuntu_24_04'
     runs-on: ubuntu-24.04
     container: ${{ matrix.image }}
     steps:
