@@ -1,3 +1,11 @@
+webp-viewer (0.6.4-1) UNRELEASED; urgency=medium
+
+  * Adjustments are made to provide builds for Ubuntu 24.04 LTS, too.
+
+  * A potentially wrong string size for file names under Windows OS is fixed.
+
+ -- Dirk Stolle <striezel-dev@web.de>  Mon, 17 Feb 2025 08:30:38 +0100
+
 webp-viewer (0.6.3-1) UNRELEASED; urgency=medium
 
   * A new command-line parameter is added to show the available keyboard
