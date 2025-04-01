@@ -52,7 +52,7 @@ Starting in the root directory of the source, you can do the following steps:
     mkdir build
     cd build
     cmake ../
-    make -j4
+    cmake --build . -j4
 
 If you want to run the test suite, too, then there is one more step:
 
