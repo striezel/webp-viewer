@@ -10,6 +10,38 @@
 Animations are currently only partially supported, that is the viewer will only
 load the first frame of an animated WebP image.
 
+## Usage
+
+```
+webp-viewer [OPTIONS] [FILE]
+
+Loads and shows WebP images.
+
+options:
+  -? | --help     - Shows this help message.
+  -v | --version  - Shows version information.
+  --shortcuts     - Shows available keyboard shortcuts.
+  FILE            - Sets the file name of the image to show.
+                    Can be repeated multiple times to view several images.
+```
+
+## Keyboard shortcuts
+
+The webp-viewer currently supports the following shortcuts:
+
+| Key                               | Effect                    |
+|-----------------------------------|---------------------------|
+| <kbd>ESC</kbd> / <kbd>Q</kbd>     | Closes the viewer.        |
+| <kbd>A</kbd> / <kbd>&#8592;</kbd> | Shows the previous image. |
+| <kbd>D</kbd> / <kbd>&#8594;</kbd> | Shows the next image.     |
+
+The previous and next image shortcuts only work when more than one image was
+given as argument. (They would be useless for cases with only one image.)
+
+## History of changes
+
+A changelog is provided as [separate file](./changelog.md).
+
 ## Building from source
 
 ### Prerequisites
@@ -62,38 +94,6 @@ If you want to run the test suite, too, then there is one more step:
 
 For information how to build webp-viewer on Windows, see the
 [MSYS2 build instructions](./documentation/msys2-build.md).
-
-## Usage
-
-```
-webp-viewer [OPTIONS] [FILE]
-
-Loads and shows WebP images.
-
-options:
-  -? | --help     - Shows this help message.
-  -v | --version  - Shows version information.
-  --shortcuts     - Shows available keyboard shortcuts.
-  FILE            - Sets the file name of the image to show.
-                    Can be repeated multiple times to view several images.
-```
-
-## Keyboard shortcuts
-
-The webp-viewer currently supports the following shortcuts:
-
-| Key                               | Effect                    |
-|-----------------------------------|---------------------------|
-| <kbd>ESC</kbd> / <kbd>Q</kbd>     | Closes the viewer.        |
-| <kbd>A</kbd> / <kbd>&#8592;</kbd> | Shows the previous image. |
-| <kbd>D</kbd> / <kbd>&#8594;</kbd> | Shows the next image.     |
-
-The previous and next image shortcuts only work when more than one image was
-given as argument. (They would be useless for cases with only one image.)
-
-## History of changes
-
-A changelog is provided as [separate file](./changelog.md).
 
 ## Copyright and Licensing
 
