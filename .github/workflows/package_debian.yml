@@ -12,16 +12,36 @@ jobs:
       matrix:
         include:
         - image: 'debian:11'
-          pack-name: 'debian_11'
+          pack-name: 'debian_11_amd64'
+          runner: ubuntu-24.04
+        - image: 'debian:11'
+          pack-name: 'debian_11_arm64'
+          runner: ubuntu-24.04-arm
         - image: 'debian:12'
-          pack-name: 'debian_12'
+          pack-name: 'debian_12_amd64'
+          runner: ubuntu-24.04
+        - image: 'debian:12'
+          pack-name: 'debian_12_arm64'
+          runner: ubuntu-24.04-arm
         - image: 'ubuntu:20.04'
-          pack-name: 'ubuntu_20_04'
+          pack-name: 'ubuntu_20_04_amd64'
+          runner: ubuntu-24.04
+        - image: 'ubuntu:20.04'
+          pack-name: 'ubuntu_20_04_arm64'
+          runner: ubuntu-24.04-arm
         - image: 'ubuntu:22.04'
-          pack-name: 'ubuntu_22_04'
+          pack-name: 'ubuntu_22_04_amd64'
+          runner: ubuntu-24.04
+        - image: 'ubuntu:22.04'
+          pack-name: 'ubuntu_22_04_arm64'
+          runner: ubuntu-24.04-arm
         - image: 'ubuntu:24.04'
-          pack-name: 'ubuntu_24_04'
-    runs-on: ubuntu-24.04
+          pack-name: 'ubuntu_24_04_amd64'
+          runner: ubuntu-24.04
+        - image: 'ubuntu:24.04'
+          pack-name: 'ubuntu_24_04_arm64'
+          runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     container: ${{ matrix.image }}
     steps:
       - name: Install Debian packages
