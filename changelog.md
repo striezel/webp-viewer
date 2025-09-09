@@ -1,5 +1,9 @@
 # Version history of webp-viewer
 
+## Version 0.?.? (2025-??-??)
+
+Adjustments are made to provide builds for Debian 13, too.
+
 ## Version 0.6.4 (2025-02-17)
 
 Adjustments are made to provide builds for Ubuntu 24.04 LTS, too.
