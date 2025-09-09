@@ -2,7 +2,7 @@
 
 #  create-package.sh - script to create *.deb package from latest Git commit
 #
-#  Copyright (C) 2019, 2022  Dirk Stolle
+#  Copyright (C) 2019, 2022, 2025  Dirk Stolle
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -29,12 +29,25 @@ echo "Info: Version is $VERSION."
 echo "Info: Architecture is $ARCH."
 echo "Info: Commit hash is $COMMIT_HASH."
 
-wget -O webp-viewer_${VERSION}.orig.tar.bz2 https://gitlab.com/striezel/webp-viewer/-/archive/${COMMIT_HASH}/webp-viewer-${COMMIT_HASH}.tar.bz2
-tar -x --bzip2 -f webp-viewer_${VERSION}.orig.tar.bz2
-if [[ $? -ne 0 ]]
+if [ -z ${GITHUB_ACTIONS+x} ]
 then
-  echo "ERROR: Archive extraction failed!"
-  exit 1
+  # Download from GitLab (default).
+  wget -O webp-viewer_${VERSION}.orig.tar.bz2 https://gitlab.com/striezel/webp-viewer/-/archive/${COMMIT_HASH}/webp-viewer-${COMMIT_HASH}.tar.bz2
+  tar -x --bzip2 -f webp-viewer_${VERSION}.orig.tar.bz2
+  if [[ $? -ne 0 ]]
+  then
+    echo "ERROR: Archive extraction failed!"
+    exit 1
+  fi
+else
+  # Download from GitHub.
+  wget -O webp-viewer_${VERSION}.orig.tar.gz https://github.com/striezel/webp-viewer/archive/${COMMIT_HASH}.tar.gz
+  tar -x --gzip -f webp-viewer_${VERSION}.orig.tar.gz
+  if [[ $? -ne 0 ]]
+  then
+    echo "ERROR: Archive extraction failed!"
+    exit 1
+  fi
 fi
 
 mv webp-viewer-${COMMIT_HASH} webp-viewer-${VERSION}
