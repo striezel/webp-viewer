@@ -21,6 +21,8 @@ jobs:
             os: ubuntu-24.04
           - version: 18
             os: ubuntu-24.04
+          - version: 19
+            os: ubuntu-24.04
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
       - name: Git checkout
