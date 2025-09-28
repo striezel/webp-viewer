@@ -1,3 +1,11 @@
+webp-viewer (0.6.5-1) UNRELEASED; urgency=medium
+
+  * Adjustments are made to provide builds for Debian 13, too.
+
+  * Furthermore, Debian and Ubuntu packages for ARM64 are now provided.
+
+ -- Dirk Stolle <striezel-dev@web.de>  Sun, 28 Sep 2025 22:14:26 +0200
+
 webp-viewer (0.6.4-1) UNRELEASED; urgency=medium
 
   * Adjustments are made to provide builds for Ubuntu 24.04 LTS, too.

@@ -1,6 +1,6 @@
 # Version history of webp-viewer
 
-## Version 0.?.? (2025-??-??)
+## Version 0.6.5 (2025-09-28)
 
 Adjustments are made to provide builds for Debian 13, too.
 
