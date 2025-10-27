@@ -73,7 +73,7 @@ jobs:
           cd "$GITHUB_WORKSPACE"
           ./ci/02-create-package.sh
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: package-${{ matrix.pack-name }}
           path: webp*.deb
