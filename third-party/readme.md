@@ -7,7 +7,7 @@ GPL v3.
 
 Currently, the following libraries are here:
 
-* **nonstd/expected.hpp**: expected lite, version 0.8.0,
+* **nonstd/expected.hpp**: expected lite, version 0.9.0,
   by Martin Moene <https://github.com/martinmoene>,
   licensed under the Boost Software License 1.0
   <https://opensource.org/licenses/BSL-1.0>
