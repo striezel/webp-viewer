@@ -5,9 +5,9 @@ docker_image_debian:
     - docker:27-dind
   script:
     - cd ci/
-    - docker build -t $CI_REGISTRY/striezel/webp-viewer/debian:12 . -f Dockerfile_debian
+    - docker build -t $CI_REGISTRY/striezel/webp-viewer/debian:13 . -f Dockerfile_debian
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker push $CI_REGISTRY/striezel/webp-viewer/debian:12
+    - docker push $CI_REGISTRY/striezel/webp-viewer/debian:13
     - docker logout $CI_REGISTRY
   # Only build new image when the Dockerfile or the GitLab CI configuration
   # changes.
@@ -17,14 +17,14 @@ docker_image_debian:
       - .gitlab-ci.yml
 
 debian:
-  image: registry.gitlab.com/striezel/webp-viewer/debian:12
+  image: registry.gitlab.com/striezel/webp-viewer/debian:13
   stage: test
   before_script:
     - apt-get update && apt-get -y upgrade
   script:
     # build
-    - export CXX=g++-12
-    - export CC=gcc-12
+    - export CXX=g++-14
+    - export CC=gcc-14
     - mkdir build
     - cd build
     - cmake ../
@@ -67,7 +67,7 @@ fedora:
     - ctest -V
 
 package_debian:
-  image: debian:12-slim
+  image: debian:13-slim
   stage: build
   before_script:
     - ./ci/01-install-dependencies.sh
