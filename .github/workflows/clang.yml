@@ -23,6 +23,8 @@ jobs:
             os: ubuntu-24.04
           - version: 19
             os: ubuntu-24.04
+          - version: 21
+            os: ubuntu-26.04
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
       - name: Git checkout
@@ -55,9 +57,9 @@ jobs:
           cd build_static_std_libs
           cmake ../ -DENABLE_LTO=ON -DENABLE_STATIC_STANDARD_LIBRARIES=ON
           make -j2
-        if: matrix.version == 12 || matrix.version == 18
+        if: matrix.version == 12 || matrix.version == 18 || matrix.version == 21
       - name: Tests of build with statically linked standard libraries
         run: |
           cd "$GITHUB_WORKSPACE"/build_static_std_libs
           ctest -V
-        if: matrix.version == 12 || matrix.version == 18
+        if: matrix.version == 12 || matrix.version == 18 || matrix.version == 21
